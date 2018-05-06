@@ -26,6 +26,8 @@ public class NoteTakingActivity extends AppCompatActivity {
     private Database db;
     private int noteID;
 
+
+    private String actionBarTilte;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,23 @@ public class NoteTakingActivity extends AppCompatActivity {
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        db=new Database(this, Settings.databaseName);
+        noteID=getIntent().getExtras().getInt("noteID");
+        String s1;
+        if(noteID==-1)
+            s1="(new note)";
+        else
+            s1="("+noteID+")";
+        textTitle=(EditText) findViewById(R.id.editTextNoteTitle);
         textNote = (TextInputEditText) findViewById(R.id.textInputNote);
+
+        getSupportActionBar().setTitle(s1+getSupportActionBar().getTitle());
+        actionBarTilte=getSupportActionBar().getTitle().toString();
+        if(noteID!=-1){
+            textTitle.setText(db.getNoteTitle(noteID));
+            textNote.setText(db.getNoteContent(noteID));
+            dirty=false;
+        }
         textNote.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -48,9 +66,10 @@ public class NoteTakingActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 dirty=true;
+                getSupportActionBar().setTitle(actionBarTilte+"*");
             }
         });
-        textTitle=(EditText) findViewById(R.id.editTextNoteTitle);
+
         textTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -65,11 +84,9 @@ public class NoteTakingActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 dirty=true;
+                getSupportActionBar().setTitle(actionBarTilte+"*");
             }
         });
-        db=new Database(this, Settings.databaseName);
-        noteID=getIntent().getExtras().getInt("noteID");
-        getSupportActionBar().setTitle("("+noteID+")"+getSupportActionBar().getTitle());
     }
 
     @Override
