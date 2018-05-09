@@ -81,7 +81,25 @@ public class Database {
 
     //endregion
 
+    //region DateReminders
+    //CRUD
+    public void addReminder(long timestamp){
+        ContentValues values=new ContentValues();
+        values.put("Alarm",timestamp);
+        db.insert("Reminder",null,values);
+    }
+    public long getReminder(int id){
+        Cursor cursor = db.query("Reminders",new String[]{"Alarm"},"id=?",new String[]{String.valueOf(id)},null,null,null);
+        long out=cursor.getLong(0);
+        cursor.close();
+        return out;
+    }
+    //no need to create update method
+    public void deleteReminder(int id){
+        db.delete("Reminders","id=?",new String[]{String.valueOf(id)});
+    }
 
+    //endregion
 
     public void nukeDB(){
         db.close();

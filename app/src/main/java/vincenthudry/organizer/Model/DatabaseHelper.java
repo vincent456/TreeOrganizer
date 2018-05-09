@@ -19,6 +19,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "\tNote   TEXT ,\n" +
                 "\tPRIMARY KEY (ID)\n" +
                 ");");
+        sqLiteDatabase.execSQL("CREATE TABLE Reminder(\n" +
+                "\tID     INTEGER NOT NULL ,\n" +
+                "\tAlarm  INTEGER NOT NULL ,\n" +
+                "\tPRIMARY KEY (ID)\n" +
+                ");");
     }
 
     @Override

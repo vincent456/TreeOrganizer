@@ -30,9 +30,9 @@ public class ExampleInstrumentedTest {
     @Test
     public void testsDatabaseNotes(){
         Context appContext=InstrumentationRegistry.getTargetContext();
-        Database db=new Database(appContext,"database.db");
+        Database db=new Database(appContext,Settings.databaseName);
         db.nukeDB();
-        db=new Database(appContext,"database.db");
+        db=new Database(appContext,Settings.databaseName);
         db.addNote("title1","message1");
         assertEquals("message1",db.getNoteContent(1));
         db.addNote("title1","message2");
