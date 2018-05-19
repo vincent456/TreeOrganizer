@@ -2,19 +2,21 @@ package vincenthudry.organizer.View;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TableLayout;
 
 import java.util.List;
 
 import vincenthudry.organizer.Model.Database;
 import vincenthudry.organizer.R;
-import vincenthudry.organizer.Settings;
 import vincenthudry.organizer.Utils.Tuple2;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,22 +31,23 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        ViewPager viewPager=(ViewPager) findViewById(R.id.view_pager);
+        TabAdapter tabAdapter=new TabAdapter(getSupportFragmentManager());
+        tabAdapter.init(new Fragment[]{new NoteFragment(), new ReminderFragment()});
+        viewPager.setAdapter(tabAdapter);
+
+        TabLayout tabLayout= (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(viewPager);
+
         /*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        */
         db = new Database(this, Settings.databaseName);
         RecyclerView rw = findViewById(R.id.notesList);
 
         List<Tuple2<Integer, String>> texts = db.getAllTitles();
         rw.setLayoutManager(new LinearLayoutManager(this));
         rw.setAdapter(new TextListAdapter(texts, this));
+        */
+
     }
 
     @Override
