@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TableLayout;
 
 import java.util.List;
 
@@ -23,15 +22,18 @@ public class MainActivity extends AppCompatActivity {
 
     Database db;
 
+    private  ViewPager viewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ViewPager viewPager=(ViewPager) findViewById(R.id.view_pager);
+        viewPager=(ViewPager) findViewById(R.id.view_pager);
         TabAdapter tabAdapter=new TabAdapter(getSupportFragmentManager());
         tabAdapter.init(new Fragment[]{new NoteFragment(), new ReminderFragment()});
         viewPager.setAdapter(tabAdapter);
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -91,5 +94,15 @@ public class MainActivity extends AppCompatActivity {
                 rw.invalidate();
             }
         }
+    }
+
+    public void tabClicked(View view) {
+        /*
+        switch (view.getId()){
+            case:break;
+            case : break;
+            default:;
+        }
+        */
     }
 }
