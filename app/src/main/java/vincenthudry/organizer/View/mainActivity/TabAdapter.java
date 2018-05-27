@@ -1,4 +1,4 @@
-package vincenthudry.organizer.View;
+package vincenthudry.organizer.View.mainActivity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,8 +25,8 @@ public class TabAdapter extends FragmentPagerAdapter {
         return 2;
     }
 
-   // @Override
-   // public CharSequence getPageTitle(int position){
-   //     return (CharSequence) new String[]{"notes","reminder"}[position];
-   // }
+    @Override
+    public CharSequence getPageTitle(int position){
+        return (CharSequence) new String[]{"notes","reminders"}[position];
+    }
 }

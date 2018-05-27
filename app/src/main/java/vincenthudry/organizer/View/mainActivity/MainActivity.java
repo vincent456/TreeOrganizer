@@ -1,4 +1,4 @@
-package vincenthudry.organizer.View;
+package vincenthudry.organizer.View.mainActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,10 @@ import java.util.List;
 import vincenthudry.organizer.Model.Database;
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.Utils.Tuple2;
+import vincenthudry.organizer.View.remindersModule.ReminderFragment;
+import vincenthudry.organizer.View.TextListAdapter;
+import vincenthudry.organizer.View.notesModule.NoteFragment;
+import vincenthudry.organizer.View.notesModule.NoteTakingActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -86,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            if (requestCode == NEW_NOTE_REQUEST || requestCode==TextListAdapter.UPDATE_RECYCLER) {
+            if (requestCode == NEW_NOTE_REQUEST || requestCode== TextListAdapter.UPDATE_RECYCLER) {
                 RecyclerView rw = findViewById(R.id.notesList);
                 List<Tuple2<Integer, String>> texts = db.getAllTitles();
                 TextListAdapter adapter = new TextListAdapter(texts, this);

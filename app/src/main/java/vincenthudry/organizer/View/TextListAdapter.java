@@ -12,6 +12,7 @@ import java.util.List;
 
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.Utils.Tuple2;
+import vincenthudry.organizer.View.notesModule.NoteTakingActivity;
 
 public class TextListAdapter extends RecyclerView.Adapter<TextListAdapter.ViewHolder> {
 

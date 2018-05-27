@@ -17,6 +17,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.*;
 import static android.support.test.espresso.matcher.ViewMatchers.*;
 
 import vincenthudry.organizer.R;
+import vincenthudry.organizer.View.mainActivity.MainActivity;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;

@@ -1,4 +1,4 @@
-package vincenthudry.organizer.View;
+package vincenthudry.organizer.View.notesModule;
 
 import android.content.DialogInterface;
 import android.support.design.widget.TextInputEditText;

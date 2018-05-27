@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".View.MainActivity"
+            android:name=".View.mainActivity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.NoteTakingActivity" />
+        <activity android:name=".View.notesModule.NoteTakingActivity" />
         <activity android:name=".View.TextListAdapter$DialogManager" />
 
         <receiver
