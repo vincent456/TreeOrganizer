@@ -1,4 +1,4 @@
-package vincenthudry.organizer.Model;
+package vincenthudry.organizer.model;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.LinkedList;
 import java.util.List;
 
-import vincenthudry.organizer.Utils.Tuple2;
+import vincenthudry.organizer.utils.Tuple2;
 
 public class Database {
     private SQLiteDatabase db;
@@ -27,6 +27,7 @@ public class Database {
         ContentValues values=new ContentValues();
         values.put("Title",title);
         values.put("Note",note);
+        values.put("Encrypted",false);
         db.insert("Notes",null,values);
     }
 
@@ -63,9 +64,34 @@ public class Database {
         db.update("Notes",values,"id=?",new String[]{String.valueOf(id)});
     }
 
+    public void updateNoteText(int id,String note){
+        ContentValues values=new ContentValues();
+        values.put("Note",note);
+        db.update("Notes",values,"id=?",new String[]{String.valueOf(id)});
+    }
+
     public void deleteNote(int id){
         db.delete("Notes","ID=?",new String[]{Integer.toString(id)});
     }
+
+    //region notes encryption
+
+    public void setEncrypt(int id,boolean isEncrypted){
+        ContentValues values=new ContentValues();
+        values.put("Encrypted",isEncrypted?1:0);
+        db.update("Notes",values,"id=?",new String[]{Integer.toString(id)});
+    }
+
+    public boolean getEncrypted(int id){
+        Cursor cursor = db.query("Notes",new String[]{"Encrypted"},"id=?",new String[]{String.valueOf(id)},null,null,null);
+        cursor.moveToFirst();
+        boolean out = cursor.getInt(0) == 1;
+        cursor.close();
+        return out;
+    }
+
+    //endregion
+
     //endregion
 
 

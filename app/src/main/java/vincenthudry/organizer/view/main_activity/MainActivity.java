@@ -1,4 +1,4 @@
-package vincenthudry.organizer.View.mainActivity;
+package vincenthudry.organizer.view.main_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,13 +14,13 @@ import android.view.MenuItem;
 
 import java.util.List;
 
-import vincenthudry.organizer.Model.Database;
+import vincenthudry.organizer.model.Database;
 import vincenthudry.organizer.R;
-import vincenthudry.organizer.Utils.Tuple2;
-import vincenthudry.organizer.View.remindersModule.ReminderFragment;
-import vincenthudry.organizer.View.TextListAdapter;
-import vincenthudry.organizer.View.notesModule.NoteFragment;
-import vincenthudry.organizer.View.notesModule.NoteTakingActivity;
+import vincenthudry.organizer.utils.Tuple2;
+import vincenthudry.organizer.view.reminders_module.ReminderFragment;
+import vincenthudry.organizer.view.TextListAdapter;
+import vincenthudry.organizer.view.notes_module.NoteFragment;
+import vincenthudry.organizer.view.notes_module.NoteTakingActivity;
 
 public class MainActivity extends AppCompatActivity {
 

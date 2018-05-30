@@ -1,4 +1,4 @@
-package vincenthudry.organizer.View;
+package vincenthudry.organizer.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +11,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import vincenthudry.organizer.R;
-import vincenthudry.organizer.Utils.Tuple2;
-import vincenthudry.organizer.View.notesModule.NoteTakingActivity;
+import vincenthudry.organizer.utils.Tuple2;
+import vincenthudry.organizer.view.notes_module.NoteTakingActivity;
 
 public class TextListAdapter extends RecyclerView.Adapter<TextListAdapter.ViewHolder> {
 

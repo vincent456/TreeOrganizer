@@ -7,9 +7,8 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.List;
-
-import vincenthudry.organizer.Model.Database;
+import vincenthudry.organizer.controller.NotesModule;
+import vincenthudry.organizer.model.Database;
 
 import static org.junit.Assert.*;
 
@@ -20,31 +19,31 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
-    //@Test
-    //public void useAppContext() throws Exception {
-    //    // Context of the app under test.
-    //    Context appContext = InstrumentationRegistry.getTargetContext();
-    //
-    //    assertEquals("vincenthudry.organizer", appContext.getPackageName());
-    //}
-    @Test
-    public void testsDatabaseNotes(){
-        Context appContext=InstrumentationRegistry.getTargetContext();
-        Database db=new Database(appContext,Settings.databaseName);
-        db.nukeDB();
-        db=new Database(appContext,Settings.databaseName);
-        db.addNote("title1","message1");
-        assertEquals("message1",db.getNoteContent(1));
-        db.addNote("title1","message2");
-        assertEquals("message2",db.getNoteContent(2));
-        List<Integer> notesWithTitle1=db.getIdByTitle("title1");
-        assertEquals(2,notesWithTitle1.size());
-        db.updateNote(2,"title2","edit");
-        assertEquals("title2",db.getNoteTitle(2));
-        assertEquals("edit",db.getNoteContent(2));
-        assertEquals(2,db.getAllTitles().size());
-        db.deleteNote(2);
-        assertEquals(1,db.getAllTitles().size());
-        db.nukeDB();
-    }
+   @Test
+   public void useAppContext() throws Exception {
+       // Context of the app under test.
+       Context appContext = InstrumentationRegistry.getTargetContext();
+
+       assertEquals("vincenthudry.organizer", appContext.getPackageName());
+   }
+
+   //TODO: for unknown reasons, it fails to solve packages and classes
+   @Test
+   public void testEncryptNote(){
+       Context appContext=InstrumentationRegistry.getTargetContext();
+       Database db=new Database(appContext,"testdb.db");
+       db.nukeDB();
+       db=new Database(appContext,"testdb.db");
+       db.addNote("test","this text is tested for encryption");
+       int id=db.getIdByTitle("test").get(0);
+       NotesModule notesModule=new NotesModule(db);
+       try {
+           notesModule.encrypt(id, "password");
+           notesModule.decrypt(id,"password");
+           }
+           catch (NotesModule.DoubleEncrypt | NotesModule.DoubleDecrypt doubleEncrypt) {
+           throw new RuntimeException();
+           }
+           assertEquals("this text is tested for encryption",db.getNoteContent(id));
+       }
 }

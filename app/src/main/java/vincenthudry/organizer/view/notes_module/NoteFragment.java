@@ -1,4 +1,4 @@
-package vincenthudry.organizer.View.notesModule;
+package vincenthudry.organizer.view.notes_module;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

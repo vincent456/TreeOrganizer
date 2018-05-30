@@ -1,4 +1,4 @@
-package vincenthudry.organizer.View.notesModule;
+package vincenthudry.organizer.view.notes_module;
 
 import android.content.DialogInterface;
 import android.support.design.widget.TextInputEditText;
@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import vincenthudry.organizer.Model.Database;
+import vincenthudry.organizer.model.Database;
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.Settings;
 

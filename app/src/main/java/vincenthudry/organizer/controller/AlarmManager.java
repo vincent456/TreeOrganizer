@@ -1,4 +1,4 @@
-package vincenthudry.organizer.Controller;
+package vincenthudry.organizer.controller;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.content.Intent;
 import java.util.LinkedList;
 import java.util.List;
 
-import vincenthudry.organizer.Model.Database;
+import vincenthudry.organizer.model.Database;
 
 public class AlarmManager {
 

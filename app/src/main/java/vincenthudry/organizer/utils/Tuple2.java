@@ -1,4 +1,4 @@
-package vincenthudry.organizer.Utils;
+package vincenthudry.organizer.utils;
 
 public class Tuple2<T1,T2> {
     public T1 t1;

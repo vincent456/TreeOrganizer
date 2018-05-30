@@ -3,12 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.remindersModule.ReminderFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context=".view.reminders_module.ReminderFragment">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:text="hello_blank_fragment" />
 
 </FrameLayout>

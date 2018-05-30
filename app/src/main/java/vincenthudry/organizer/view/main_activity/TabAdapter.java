@@ -1,4 +1,4 @@
-package vincenthudry.organizer.View.mainActivity;
+package vincenthudry.organizer.view.main_activity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

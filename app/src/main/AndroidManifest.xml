@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".View.mainActivity.MainActivity"
+            android:name=".view.main_activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,13 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.notesModule.NoteTakingActivity" />
-        <activity android:name=".View.TextListAdapter$DialogManager" />
+        <activity android:name=".view.notes_module.NoteTakingActivity" />
 
         <receiver
-            android:name=".Controller.AlarmReciever"
+            android:name=".controller.AlarmReciever"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
     </application>
 
 </manifest>

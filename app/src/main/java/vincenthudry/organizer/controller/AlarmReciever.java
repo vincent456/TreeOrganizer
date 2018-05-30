@@ -1,4 +1,4 @@
-package vincenthudry.organizer.Controller;
+package vincenthudry.organizer.controller;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

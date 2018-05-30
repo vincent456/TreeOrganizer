@@ -1,4 +1,4 @@
-package vincenthudry.organizer.Model;
+package vincenthudry.organizer.model;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,12 +12,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(
-                "CREATE TABLE Notes(\n" +
-                "\tID     INTEGER NOT NULL ,\n" +
-                "\tTitle  TEXT NOT NULL,\n" +
-                "\tNote   TEXT ,\n" +
-                "\tPRIMARY KEY (ID)\n" +
+        sqLiteDatabase.execSQL("CREATE TABLE Notes(\n" +
+                "\tID           INTEGER NOT NULL ,\n" +
+                "\tTitle        TEXT ,\n" +
+                "\tNote         TEXT ,\n" +
+                "\tEncrypted    INTEGER NOT NULL,\n" +
+                "\tCONSTRAINT Notes_PK PRIMARY KEY (ID)\n" +
                 ");");
         sqLiteDatabase.execSQL("CREATE TABLE Reminder(\n" +
                 "\tID     INTEGER NOT NULL ,\n" +
