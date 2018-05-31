@@ -30,7 +30,7 @@ public class NoteFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent=new Intent(context,NoteTakingActivity.class);
                 intent.putExtra("noteID",-1);
-                startActivityForResult(intent,NEW_NOTE_REQUEST);
+                getActivity().startActivityForResult(intent,NEW_NOTE_REQUEST);
             }
         });
         //endregion
