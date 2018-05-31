@@ -28,6 +28,7 @@ public class Database {
         values.put("Title",title);
         values.put("Note",note);
         values.put("Encrypted",false);
+        values.put("EncryptedData",new byte[]{});
         db.insert("Notes",null,values);
     }
 
@@ -64,34 +65,9 @@ public class Database {
         db.update("Notes",values,"id=?",new String[]{String.valueOf(id)});
     }
 
-    public void updateNoteText(int id,String note){
-        ContentValues values=new ContentValues();
-        values.put("Note",note);
-        db.update("Notes",values,"id=?",new String[]{String.valueOf(id)});
-    }
-
     public void deleteNote(int id){
         db.delete("Notes","ID=?",new String[]{Integer.toString(id)});
     }
-
-    //region notes encryption
-
-    public void setEncrypt(int id,boolean isEncrypted){
-        ContentValues values=new ContentValues();
-        values.put("Encrypted",isEncrypted?1:0);
-        db.update("Notes",values,"id=?",new String[]{Integer.toString(id)});
-    }
-
-    public boolean getEncrypted(int id){
-        Cursor cursor = db.query("Notes",new String[]{"Encrypted"},"id=?",new String[]{String.valueOf(id)},null,null,null);
-        cursor.moveToFirst();
-        boolean out = cursor.getInt(0) == 1;
-        cursor.close();
-        return out;
-    }
-
-    //endregion
-
     //endregion
 
 
@@ -104,6 +80,44 @@ public class Database {
         cursor.close();
         return out;
     }
+
+    //region crypt
+
+     public boolean getEncrypted(int id){
+        Cursor cursor=db.query("Notes",new String[]{"Encrypted"},"id=?",new String[]{String.valueOf(id)},null,null,null);
+        cursor.moveToFirst();
+        boolean isEncrypted=cursor.getInt(0)==1;
+        cursor.close();
+        return  isEncrypted;
+    }
+
+    public void setEncrypted(int id, boolean bool){
+        ContentValues values=new ContentValues();
+        values.put("Encrypted",bool?1:0);
+        db.update("Notes",values,"id=?",new String[]{String.valueOf(id)});
+    }
+
+    public void setEncryptedData(int id,byte[] data){
+        ContentValues values=new ContentValues();
+        values.put("EncryptedData",data);
+        db.update("Notes",values,"id=?",new String[]{String.valueOf(id)});
+    }
+
+    public byte[] getEncryptedData(int id){
+        Cursor cursor = db.query("Notes",new String[]{"EncryptedData"},"id=?",new String[]{String.valueOf(id)},null,null,null);
+        cursor.moveToFirst();
+        byte[] out = cursor.getBlob(0);
+        cursor.close();
+        return out;
+    }
+
+    public void updateText(int id, String text){
+        ContentValues values=new ContentValues();
+        values.put("Note",text);
+        db.update("Notes",values,"id=?",new String[]{String.valueOf(id)});
+    }
+
+    //endregion
 
     //endregion
 
