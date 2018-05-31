@@ -1,5 +1,6 @@
-package vincenthudry.organizer.view;
+package vincenthudry.organizer.view.notes_module;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -12,16 +13,15 @@ import java.util.List;
 
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.utils.Tuple2;
-import vincenthudry.organizer.view.notes_module.NoteTakingActivity;
 
 public class TextListAdapter extends RecyclerView.Adapter<TextListAdapter.ViewHolder> {
 
     private List<Tuple2<Integer, String>> data;
 
-    private AppCompatActivity activity;
+    private Activity activity;
     public static final int UPDATE_RECYCLER = 2;
 
-    public TextListAdapter(List<Tuple2<Integer, String>> data, AppCompatActivity activity) {
+    public TextListAdapter(List<Tuple2<Integer, String>> data, Activity activity) {
         this.data = data;
         this.activity = activity;
     }

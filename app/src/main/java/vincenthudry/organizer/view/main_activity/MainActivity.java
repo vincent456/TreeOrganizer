@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ import vincenthudry.organizer.model.Database;
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.utils.Tuple2;
 import vincenthudry.organizer.view.reminders_module.ReminderFragment;
-import vincenthudry.organizer.view.TextListAdapter;
+import vincenthudry.organizer.view.notes_module.TextListAdapter;
 import vincenthudry.organizer.view.notes_module.NoteFragment;
 import vincenthudry.organizer.view.notes_module.NoteTakingActivity;
 
@@ -30,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     Database db;
 
     private  ViewPager viewPager;
+    private TabAdapter tabAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         viewPager=(ViewPager) findViewById(R.id.view_pager);
-        TabAdapter tabAdapter=new TabAdapter(getSupportFragmentManager());
+        tabAdapter=new TabAdapter(getSupportFragmentManager());
         tabAdapter.init(new Fragment[]{new NoteFragment(), new ReminderFragment()});
         viewPager.setAdapter(tabAdapter);
 
@@ -88,11 +88,12 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             if (requestCode == NEW_NOTE_REQUEST || requestCode== TextListAdapter.UPDATE_RECYCLER)
             {
-                
-                RecyclerView rw = findViewById(R.id.notes_list);
+                NoteFragment notesFragment= (NoteFragment) tabAdapter.getFragments()[0];
+                RecyclerView rw = notesFragment.getView().findViewById(R.id.notes_list);
                 List<Tuple2<Integer, String>> texts = db.getAllTitles();
                 TextListAdapter adapter = new TextListAdapter(texts, this);
                 rw.setAdapter(adapter);
+                rw.setLayoutManager(new LinearLayoutManager(this));
                 rw.invalidate();
             }
         }
