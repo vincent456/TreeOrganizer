@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     Database db;
 
     private  ViewPager viewPager;
+    private RecyclerView rw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,22 +93,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == NEW_NOTE_REQUEST || requestCode== TextListAdapter.UPDATE_RECYCLER) {
-                RecyclerView rw = findViewById(R.id.notesList);
-                List<Tuple2<Integer, String>> texts = db.getAllTitles();
-                TextListAdapter adapter = new TextListAdapter(texts, this);
-                rw.setAdapter(adapter);
-                rw.invalidate();
+                Toast.makeText(this,"result got",Toast.LENGTH_SHORT).show();
+                //RecyclerView rw = findViewById(R.id.notesList);
+                //List<Tuple2<Integer, String>> texts = db.getAllTitles();
+                //TextListAdapter adapter = new TextListAdapter(texts, this);
+                //rw.setAdapter(adapter);
+                //rw.invalidate();
             }
         }
-    }
-
-    public void tabClicked(View view) {
-        /*
-        switch (view.getId()){
-            case:break;
-            case : break;
-            default:;
-        }
-        */
     }
 }

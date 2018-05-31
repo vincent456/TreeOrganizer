@@ -20,7 +20,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.notes_module.NoteTakingActivity" />
-        <activity android:name=".view.TextListAdapter$DialogManager" />
 
         <receiver
             android:name=".controller.AlarmReciever"
