@@ -1,6 +1,8 @@
 package vincenthudry.organizer.view.notes_module;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.support.annotation.StringRes;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +13,12 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import vincenthudry.organizer.controller.NotesModule;
 import vincenthudry.organizer.model.Database;
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.Settings;
@@ -30,13 +36,18 @@ public class NoteTakingActivity extends AppCompatActivity {
     private String actionBarTilte;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //region setup view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_taking);
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //endregion
+
         db=new Database(this, Settings.databaseName);
         noteID=getIntent().getExtras().getInt("noteID");
+
+        //region set titlebar
         String s1;
         if(noteID==-1)
             s1="(new note)";
@@ -52,6 +63,9 @@ public class NoteTakingActivity extends AppCompatActivity {
             textNote.setText(db.getNoteContent(noteID));
             dirty=false;
         }
+        //endregion
+
+        //region add triggers for changes in text or title
         textNote.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -69,7 +83,6 @@ public class NoteTakingActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle(actionBarTilte+"*");
             }
         });
-
         textTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -87,6 +100,16 @@ public class NoteTakingActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle(actionBarTilte+"*");
             }
         });
+        //endregion
+
+        //region setup crypt button
+        boolean isEncrypted=db.getEncrypted(noteID);
+        Button cryptButton = findViewById(R.id.crypt_button);
+        if(isEncrypted)
+            cryptButton.setText(R.string.decrypt);
+        else
+            cryptButton.setText(R.string.encrypt);
+        //endregion
     }
 
     @Override
@@ -155,5 +178,66 @@ public class NoteTakingActivity extends AppCompatActivity {
     public void cancelClick(View view) {
         setResult(RESULT_CANCELED);
         finish();
+    }
+
+    public void onEncryptButtonClick(View view) {
+        boolean isEncrypted = db.getEncrypted(noteID);
+        final Button sender=(Button) view;
+        String buttonText = sender.getText().toString();
+        if(isEncrypted
+                && buttonText.equals(getResources().getString(R.string.decrypt))){
+            //region is encrypted and text set to "decrypt"
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("enter password for decryption");
+            builder.setView(getLayoutInflater().inflate(R.layout.dialog_password_field,null));
+            final Context context=this;
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    NotesModule notesModule=new NotesModule(db);
+                    TextView tv= findViewById(R.id.single_password_field);
+                    String password=tv.getText().toString();
+                    try {
+                        notesModule.decrypt(noteID,password);
+                        TextView textContent = findViewById(R.id.textInputNote);
+                        textContent.setText(db.getNoteContent(noteID));
+                        sender.setText(R.string.encrypt);
+                    } catch (Exception e) {
+                        Toast.makeText(context,"An error occured in decrytion",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            builder.show();
+            //endregion
+        }
+        else if (!isEncrypted
+                && buttonText.equals(getResources().getString(R.string.encrypt))){
+            //region is not encrypted and text set to "encrypt"
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("enter password for encryption");
+            builder.setView(getLayoutInflater().inflate(R.layout.dialog_password_field,null));
+            final Context context = this;
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    NotesModule notesModule=new NotesModule(db);
+                    TextView tv=findViewById(R.id.single_password_field);
+                    String password=tv.getText().toString();
+                    try {
+                        notesModule.encrypt(noteID,password);
+                        TextView noteContent=findViewById(R.id.textInputNote);
+                        noteContent.setText(db.getNoteContent(noteID));
+                        sender.setText(R.string.decrypt);
+                    } catch (NotesModule.DoubleEncrypt doubleEncrypt) {
+                        Toast.makeText(context,"Tried to encrypt an encrypted text",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            builder.show();
+            //endregion
+        }
+        else {
+
+        }
     }
 }
