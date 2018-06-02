@@ -117,6 +117,16 @@ public class Database {
         db.update("Notes",values,"id=?",new String[]{String.valueOf(id)});
     }
 
+
+    public void addEncryptedNote(String title,String note,byte[] data) {
+        ContentValues values=new ContentValues();
+        values.put("Title",title);
+        values.put("Note",note);
+        values.put("Encrypted",true);
+        values.put("EncryptedData",data);
+        db.insert("Notes",null,values);
+    }
+
     //endregion
 
     //endregion
@@ -145,5 +155,4 @@ public class Database {
         db.close();
         context.deleteDatabase(db.getPath());
     }
-
 }

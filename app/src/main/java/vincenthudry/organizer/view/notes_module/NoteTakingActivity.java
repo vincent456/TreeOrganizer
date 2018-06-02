@@ -81,6 +81,8 @@ public class NoteTakingActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 dirty = true;
                 getSupportActionBar().setTitle(actionBarTilte + "*");
+                Button cryptButton = findViewById(R.id.crypt_button);
+               // cryptButton.setText(R.string.save_as_encrypted);
             }
         });
         textTitle.addTextChangedListener(new TextWatcher() {
@@ -236,10 +238,13 @@ public class NoteTakingActivity extends AppCompatActivity {
                     TextView tv = dialView.findViewById(R.id.single_password_field);
                     String password = tv.getText().toString();
                     try {
-                        notesModule.encrypt(noteID, password);
-                        TextView noteContent = findViewById(R.id.textInputNote);
-                        noteContent.setText(db.getNoteContent(noteID));
-                        sender.setText(R.string.decrypt);
+                        if(!password.equals("")) {
+                            TextView noteContent = findViewById(R.id.textInputNote);
+                            String noteContentString = noteContent.getText().toString();
+                            notesModule.encrypt(noteID,noteContentString, password);
+                            noteContent.setText(db.getNoteContent(noteID));
+                            sender.setText(R.string.decrypt);
+                        }
                     } catch (NotesModule.DoubleEncrypt doubleEncrypt) {
                         throw new IllegalStateException();
                     }
@@ -289,13 +294,8 @@ public class NoteTakingActivity extends AppCompatActivity {
         String noteString = textNote.getText().toString();
         String noteTitle = textTitle.getText().toString();
         if (noteID == -1 && dirty) {//new note
-            db.addNote(noteTitle, noteString);
             NotesModule notesModule = new NotesModule(db);
-            try {
-                notesModule.encrypt(noteID, password);
-            } catch (NotesModule.DoubleEncrypt doubleEncrypt) {
-                throw new IllegalStateException();
-            }
+            notesModule.addNewEncryptedNote(noteTitle,noteString,password);
         } else
             throw new IllegalStateException();
         setResult(RESULT_OK);

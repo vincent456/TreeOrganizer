@@ -23,10 +23,9 @@ public class NotesModule {
 
     }
 
-    public void encrypt(int id, String password) throws DoubleEncrypt {
+    public void encrypt(int id, String text, String password) throws DoubleEncrypt {
         if(db.getEncrypted(id))
             throw new DoubleEncrypt();
-        String text=db.getNoteContent(id);
 
         try {
             SecretKeySpec secretKeySpec = new SecretKeySpec(password.getBytes(), "Blowfish");
@@ -64,6 +63,20 @@ public class NotesModule {
         }
         catch (Exception e){
             throw e;
+        }
+    }
+
+    public void addNewEncryptedNote(String noteTitle,String noteText,String password) {
+        SecretKeySpec secretKeySpec = new SecretKeySpec(password.getBytes(),"Blowfish");
+        try {
+            Cipher cipher = Cipher.getInstance("Blowfish");
+            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+            byte[] encrypted = cipher.doFinal(noteText.getBytes());
+            //database
+            db.addEncryptedNote(noteTitle,encrypted.toString(),encrypted);
+        }
+        catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
+            throw new RuntimeException(e.getMessage());
         }
     }
 
