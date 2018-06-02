@@ -151,6 +151,10 @@ public class Database {
 
     //endregion
 
+    public void closeDB(){
+        db.close();
+    }
+
     public void nukeDB(){
         db.close();
         context.deleteDatabase(db.getPath());

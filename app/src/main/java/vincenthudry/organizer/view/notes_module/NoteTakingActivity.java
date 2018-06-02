@@ -81,8 +81,6 @@ public class NoteTakingActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 dirty = true;
                 getSupportActionBar().setTitle(actionBarTilte + "*");
-                Button cryptButton = findViewById(R.id.crypt_button);
-               // cryptButton.setText(R.string.save_as_encrypted);
             }
         });
         textTitle.addTextChangedListener(new TextWatcher() {
@@ -102,21 +100,6 @@ public class NoteTakingActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle(actionBarTilte + "*");
             }
         });
-        //endregion
-
-        //region setup crypt button
-        boolean isEncrypted;
-        Button cryptButton = findViewById(R.id.crypt_button);
-        if (noteID == -1) {
-            isEncrypted = false;
-            cryptButton.setText(R.string.save_as_encrypted);
-        } else {//noteid!=-1
-            isEncrypted = db.getEncrypted(noteID);
-            if (isEncrypted)
-                cryptButton.setText(R.string.decrypt);
-            else
-                cryptButton.setText(R.string.encrypt);
-        }
         //endregion
     }
 
@@ -196,11 +179,10 @@ public class NoteTakingActivity extends AppCompatActivity {
         }
         final Button sender = (Button) view;
         String buttonText = sender.getText().toString();
-        if (isEncrypted
-                && buttonText.equals(getResources().getString(R.string.decrypt))) {
-            //region is encrypted and text set to "decrypt" = decryption
+        if (isEncrypted) {
+            //region is encrypted = decryption
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("enter password for decryption");
+            builder.setTitle("enter password for encryption/decryption");
             final View dialView=getLayoutInflater().inflate(R.layout.dialog_password_field, null);
             builder.setView(dialView);
             final Context context = this;
@@ -214,20 +196,18 @@ public class NoteTakingActivity extends AppCompatActivity {
                         notesModule.decrypt(noteID, password);
                         TextView textContent = findViewById(R.id.textInputNote);
                         textContent.setText(db.getNoteContent(noteID));
-                        sender.setText(R.string.encrypt);
                     } catch (Exception e) {
-                        Toast.makeText(context, "An error occured in decrytion", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "An error occured in decryption", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
             builder.show();
             //endregion
         } else if (!isEncrypted
-                && buttonText.equals(getResources().getString(R.string.encrypt))
                 && noteID != -1) {
-            //region is not encrypted, text set to "encrypt", noteid!=-1 = encryption
+            //region is not encrypted, noteid!=-1 = encryption
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("enter password for encryption");
+            builder.setTitle("enter password for encryption/decryption");
             final View dialView = getLayoutInflater().inflate(R.layout.dialog_password_field, null);
             builder.setView(dialView);
             final Context context = this;
@@ -243,7 +223,6 @@ public class NoteTakingActivity extends AppCompatActivity {
                             String noteContentString = noteContent.getText().toString();
                             notesModule.encrypt(noteID,noteContentString, password);
                             noteContent.setText(db.getNoteContent(noteID));
-                            sender.setText(R.string.decrypt);
                         }
                     } catch (NotesModule.DoubleEncrypt doubleEncrypt) {
                         throw new IllegalStateException();
@@ -253,9 +232,8 @@ public class NoteTakingActivity extends AppCompatActivity {
             builder.show();
             //endregion
         } else if (!isEncrypted
-                && buttonText.equals(getResources().getString(R.string.save_as_encrypted))
                 && noteID == -1) {
-            //region is not encrypted, text set to "save as encrypted", noteId==-1 = save as encrypted
+            //region is not encrypted, noteId==-1 = save as encrypted
 
             //region check for title
             String noteTitle = textTitle.getText().toString();
@@ -300,5 +278,11 @@ public class NoteTakingActivity extends AppCompatActivity {
             throw new IllegalStateException();
         setResult(RESULT_OK);
         finish();
+    }
+
+    @Override
+    protected void onDestroy(){
+        db.closeDB();
+        super.onDestroy();
     }
 }

@@ -4,8 +4,7 @@
     <string name="title">Title</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
-    <string name="delete">Delete</string>
-    <string name="encrypt">Encrypt</string>
-    <string name="decrypt">Decrypt</string>
+    <string name="delete">Delete</string>*
     <string name="save_as_encrypted">save as encrypted</string>
+    <string name="encrypt_decrypt">Encrypt/Decrypt</string>
 </resources>
