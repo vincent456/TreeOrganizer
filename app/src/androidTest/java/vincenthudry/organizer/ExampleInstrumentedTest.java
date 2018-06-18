@@ -7,11 +7,6 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.List;
-
-import vincenthudry.organizer.controller.NotesModule;
-import vincenthudry.organizer.model.Database;
-
 import static org.junit.Assert.*;
 
 /**

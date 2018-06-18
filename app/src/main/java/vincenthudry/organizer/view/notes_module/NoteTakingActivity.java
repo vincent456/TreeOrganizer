@@ -29,7 +29,7 @@ public class NoteTakingActivity extends AppCompatActivity {
     private boolean dirty = false;
 
     private Database db;
-    private int noteID;
+    private long noteID;
 
 
     private String actionBarTilte;
@@ -45,12 +45,12 @@ public class NoteTakingActivity extends AppCompatActivity {
         //endregion
 
         db = new Database(this, Settings.databaseName);
-        noteID = getIntent().getExtras().getInt("noteID");
+        noteID = getIntent().getExtras().getLong("noteID");
 
         //region set titlebar
         String s1;
         if (noteID == -1)
-            s1 = "(new note)";
+            s1 = getString(R.string.new_note);
         else
             s1 = "(" + noteID + ")";
         textTitle = (EditText) findViewById(R.id.editTextNoteTitle);
@@ -128,8 +128,8 @@ public class NoteTakingActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_delete) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Are you sure to delete this note ?");
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            builder.setMessage(R.string.confirm_delete_note);
+            builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     db.deleteNote(noteID);
@@ -137,7 +137,7 @@ public class NoteTakingActivity extends AppCompatActivity {
                     finish();
                 }
             });
-            builder.setNegativeButton("No/Cancel", null);
+            builder.setNegativeButton(R.string.no_cancel, null);
             builder.create().show();
             return true;
         }
@@ -151,8 +151,8 @@ public class NoteTakingActivity extends AppCompatActivity {
 
         if (noteTitle.equals("")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("You must specify a title to your note");
-            builder.setPositiveButton("Ok", null);
+            builder.setMessage(R.string.please_specify_note_title);
+            builder.setPositiveButton(R.string.ok, null);
             builder.create().show();
         } else {
             if (noteID == -1 && dirty)//new note
@@ -182,7 +182,7 @@ public class NoteTakingActivity extends AppCompatActivity {
         if (isEncrypted) {
             //region is encrypted = decryption
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("enter password for encryption/decryption");
+            builder.setTitle(R.string.prompt_enter_password);
             final View dialView=getLayoutInflater().inflate(R.layout.dialog_password_field, null);
             builder.setView(dialView);
             final Context context = this;
@@ -197,7 +197,7 @@ public class NoteTakingActivity extends AppCompatActivity {
                         TextView textContent = findViewById(R.id.textInputNote);
                         textContent.setText(db.getNoteContent(noteID));
                     } catch (Exception e) {
-                        Toast.makeText(context, "An error occured in decryption", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, R.string.error_during_decryption, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -207,11 +207,11 @@ public class NoteTakingActivity extends AppCompatActivity {
                 && noteID != -1) {
             //region is not encrypted, noteid!=-1 = encryption
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("enter password for encryption/decryption");
+            builder.setTitle(R.string.enter_password);
             final View dialView = getLayoutInflater().inflate(R.layout.dialog_password_field, null);
             builder.setView(dialView);
             final Context context = this;
-            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     NotesModule notesModule = new NotesModule(db);
@@ -240,19 +240,19 @@ public class NoteTakingActivity extends AppCompatActivity {
 
             if (noteTitle.equals("")) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("You must specify a title to your note");
-                builder.setPositiveButton("Ok", null);
+                builder.setMessage(R.string.please_specify_note_title);
+                builder.setPositiveButton(R.string.ok, null);
                 builder.create().show();
             }
             //endregion
 
             else {//title is correct
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("enter password for save as encrypted");
+                builder.setTitle(R.string.please_enter_password_for_encrypted_note);
                 final View dialView=getLayoutInflater().inflate(R.layout.dialog_password_field, null);
                 builder.setView(dialView);
                 Context context = this;
-                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         TextView tv = dialView.findViewById(R.id.single_password_field);

@@ -23,7 +23,7 @@ public class NotesModule {
 
     }
 
-    public void encrypt(int id, String text, String password) throws DoubleEncrypt {
+    public void encrypt(long id, String text, String password) throws DoubleEncrypt {
         if(db.getEncrypted(id))
             throw new DoubleEncrypt();
 
@@ -46,7 +46,7 @@ public class NotesModule {
 
     }
 
-    public void decrypt(int id, String password) throws DoubleDecrypt, Exception {
+    public void decrypt(long id, String password) throws DoubleDecrypt, Exception {
         if(!db.getEncrypted(id))
             throw new DoubleDecrypt();
         byte[] encryptedData=db.getEncryptedData(id);

@@ -34,7 +34,7 @@ public class NoteFragment extends Fragment {
         View v=inflater.inflate(R.layout.fragment_note,container,false);
 
         RecyclerView rw=v.findViewById(R.id.notes_list);
-        List<Tuple2<Integer,String>> data=db.getAllTitles();
+        List<Tuple2<Long,String>> data=db.getAllTitles();
         TextListAdapter adapter=new TextListAdapter(data,getActivity());
         rw.setLayoutManager(new LinearLayoutManager(context));
         rw.setAdapter(adapter);

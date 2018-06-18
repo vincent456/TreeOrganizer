@@ -7,4 +7,16 @@
     <string name="delete">Delete</string>*
     <string name="save_as_encrypted">save as encrypted</string>
     <string name="encrypt_decrypt">Encrypt/Decrypt</string>
+    <string name="channel_name">alarm notification channel</string>
+    <string name="channel_description">channel for alarms</string>
+    <string name="new_note">(new note)</string>
+    <string name="confirm_delete_note">Are you sure to delete this note ?</string>
+    <string name="yes">Yes</string>
+    <string name="no_cancel">No/Cancel</string>
+    <string name="please_specify_note_title">You must specify a title to your note</string>
+    <string name="ok">Ok</string>
+    <string name="prompt_enter_password">enter password for encryption/decryption</string>
+    <string name="error_during_decryption">An error occured in decryption</string>
+    <string name="enter_password">enter password for encryption/decryption</string>
+    <string name="please_enter_password_for_encrypted_note">enter password for save as encrypted</string>
 </resources>

@@ -86,11 +86,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            if (requestCode == NEW_NOTE_REQUEST || requestCode== TextListAdapter.UPDATE_RECYCLER)
+            if (requestCode == NEW_NOTE_REQUEST || requestCode == TextListAdapter.UPDATE_RECYCLER)
             {
                 NoteFragment notesFragment= (NoteFragment) tabAdapter.getFragments()[0];
                 RecyclerView rw = notesFragment.getView().findViewById(R.id.notes_list);
-                List<Tuple2<Integer, String>> texts = db.getAllTitles();
+                List<Tuple2<Long, String>> texts = db.getAllTitles();
                 TextListAdapter adapter = new TextListAdapter(texts, this);
                 rw.setAdapter(adapter);
                 rw.setLayoutManager(new LinearLayoutManager(this));

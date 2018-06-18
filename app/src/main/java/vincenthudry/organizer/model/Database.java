@@ -23,26 +23,26 @@ public class Database {
 
     //region notes
     //region CRUD
-    public void addNote(String title,String note){
+    public long addNote(String title,String note){
         ContentValues values=new ContentValues();
         values.put("Title",title);
         values.put("Note",note);
         values.put("Encrypted",false);
         values.put("EncryptedData",new byte[]{});
-        db.insert("Notes",null,values);
+        return db.insert("Notes",null,values);
     }
 
-    public List<Integer> getIdByTitle(String title){
+    public List<Long> getIdByTitle(String title){
         Cursor cursor=db.query("Notes",new String[]{"ID"},"title=?",new String[]{title},null,null,"ID");
-        List<Integer> out=new LinkedList<>();
+        List<Long> out=new LinkedList<>();
         while (cursor.moveToNext()){
-            out.add(cursor.getInt(0));
+            out.add(cursor.getLong(0));
         }
         cursor.close();
         return out;
     }
 
-    public String getNoteContent(int id){
+    public String getNoteContent(long id){
         Cursor cursor=db.query("Notes",new String[]{"Note"},"id=?",new String[]{String.valueOf(id)},null,null,null,String.valueOf(1));
         cursor.moveToFirst();
         String out = cursor.getString(0);
@@ -50,7 +50,7 @@ public class Database {
         return out;
     }
 
-    public String getNoteTitle(int id){
+    public String getNoteTitle(long id){
         Cursor cursor=db.query("Notes",new String[]{"Title"},"id=?",new String[]{String.valueOf(id)},null,null,null);
         cursor.moveToFirst();
         String out= cursor.getString(0);
@@ -58,52 +58,51 @@ public class Database {
         return out;
     }
 
-    public void updateNote(int id,String title,String note){
+    public void updateNote(long id,String title,String note){
         ContentValues values=new ContentValues();
         values.put("Title",title);
         values.put("Note",note);
         db.update("Notes",values,"id=?",new String[]{String.valueOf(id)});
     }
 
-    public void deleteNote(int id){
-        db.delete("Notes","ID=?",new String[]{Integer.toString(id)});
+    public void deleteNote(long id){
+        db.delete("Notes","ID=?",new String[]{Long.toString(id)});
     }
-    //endregion
 
-
-    public List<Tuple2<Integer,String>> getAllTitles(){
+    public List<Tuple2<Long,String>> getAllTitles(){
         Cursor cursor=db.query("Notes",new String[]{"ID","Title"},null,null,null,null,"Title");
-        List<Tuple2<Integer,String>> out=new LinkedList<>();
+        List<Tuple2<Long,String>> out=new LinkedList<>();
         while (cursor.moveToNext()){
-            out.add(new Tuple2<Integer, String>(cursor.getInt(0),cursor.getString(1)));
+            out.add(new Tuple2<>(cursor.getLong(0),cursor.getString(1)));
         }
         cursor.close();
         return out;
     }
+    //endregion
 
     //region crypt
 
-     public boolean getEncrypted(int id){
+     public boolean getEncrypted(long id){
         Cursor cursor=db.query("Notes",new String[]{"Encrypted"},"id=?",new String[]{String.valueOf(id)},null,null,null);
         cursor.moveToFirst();
-        boolean isEncrypted=cursor.getInt(0)==1;
+        boolean isEncrypted=cursor.getLong(0)==1;
         cursor.close();
         return  isEncrypted;
     }
 
-    public void setEncrypted(int id, boolean bool){
+    public void setEncrypted(long id, boolean bool){
         ContentValues values=new ContentValues();
         values.put("Encrypted",bool?1:0);
         db.update("Notes",values,"id=?",new String[]{String.valueOf(id)});
     }
 
-    public void setEncryptedData(int id,byte[] data){
+    public void setEncryptedData(long id,byte[] data){
         ContentValues values=new ContentValues();
         values.put("EncryptedData",data);
         db.update("Notes",values,"id=?",new String[]{String.valueOf(id)});
     }
 
-    public byte[] getEncryptedData(int id){
+    public byte[] getEncryptedData(long id){
         Cursor cursor = db.query("Notes",new String[]{"EncryptedData"},"id=?",new String[]{String.valueOf(id)},null,null,null);
         cursor.moveToFirst();
         byte[] out = cursor.getBlob(0);
@@ -111,20 +110,20 @@ public class Database {
         return out;
     }
 
-    public void updateText(int id, String text){
+    public void updateText(long id, String text){
         ContentValues values=new ContentValues();
         values.put("Note",text);
         db.update("Notes",values,"id=?",new String[]{String.valueOf(id)});
     }
 
 
-    public void addEncryptedNote(String title,String note,byte[] data) {
+    public long addEncryptedNote(String title,String note,byte[] data) {
         ContentValues values=new ContentValues();
         values.put("Title",title);
         values.put("Note",note);
         values.put("Encrypted",true);
         values.put("EncryptedData",data);
-        db.insert("Notes",null,values);
+        return db.insert("Notes",null,values);
     }
 
     //endregion
@@ -133,20 +132,30 @@ public class Database {
 
     //region DateReminders
     //CRUD
-    public void addReminder(long timestamp){
+    public long addReminder(long timestamp){
         ContentValues values=new ContentValues();
         values.put("Alarm",timestamp);
-        db.insert("Reminder",null,values);
+        return db.insert("Reminder",null,values);
     }
-    public long getReminder(int id){
+    public long getReminder(long id){
         Cursor cursor = db.query("Reminders",new String[]{"Alarm"},"id=?",new String[]{String.valueOf(id)},null,null,null);
         long out=cursor.getLong(0);
         cursor.close();
         return out;
     }
     //no need to create update method
-    public void deleteReminder(int id){
-        db.delete("Reminders","id=?",new String[]{String.valueOf(id)});
+    public void deleteReminder(long id){
+        db.delete("Reminder","id=?",new String[]{String.valueOf(id)});
+    }
+
+    public List<Tuple2<Long,Long>> getAllReminders(){
+        Cursor cursor=db.query("Reminder",new String[]{"ID,Alarm"},null,null,null,null,null);
+        List<Tuple2<Long,Long>> out = new LinkedList<>();
+        while (cursor.moveToNext()){
+            out.add(new Tuple2<>(cursor.getLong(0),cursor.getLong(1)));
+        }
+        cursor.close();
+        return out;
     }
 
     //endregion
