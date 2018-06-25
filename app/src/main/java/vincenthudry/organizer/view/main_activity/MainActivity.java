@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import java.util.List;
 
 import vincenthudry.organizer.Settings;
+import vincenthudry.organizer.TreeFragment;
 import vincenthudry.organizer.model.Database;
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.utils.Tuple2;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager=(ViewPager) findViewById(R.id.view_pager);
         tabAdapter=new TabAdapter(getSupportFragmentManager());
-        tabAdapter.init(new Fragment[]{new NoteFragment(), new ReminderFragment()});
+        tabAdapter.init(new Fragment[]{new NoteFragment(), new ReminderFragment(),new TreeFragment()});
         viewPager.setAdapter(tabAdapter);
 
         TabLayout tabLayout= (TabLayout) findViewById(R.id.tab_layout);
