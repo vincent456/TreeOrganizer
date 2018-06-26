@@ -138,7 +138,7 @@ public class Database {
         return db.insert("Reminder",null,values);
     }
     public long getReminder(long id){
-        Cursor cursor = db.query("Reminders",new String[]{"Alarm"},"id=?",new String[]{String.valueOf(id)},null,null,null);
+        Cursor cursor = db.query("Reminder",new String[]{"Alarm"},"id=?",new String[]{String.valueOf(id)},null,null,null);
         long out=cursor.getLong(0);
         cursor.close();
         return out;
@@ -158,6 +158,59 @@ public class Database {
         return out;
     }
 
+    //endregion
+
+    //region nodes
+    //region CRUD
+    public long addNode(String title){
+        ContentValues values=new ContentValues();
+        values.put("title",title);
+        return  db.insert("Node",null,values);
+    }
+
+    public String getNodeTitle(long id){
+        Cursor cursor=db.query("Node",new String[]{"title"},"id=?",new String[]{String.valueOf(id)},null,null,null);
+        cursor.moveToFirst();
+        String out = cursor.getString(0);
+        cursor.close();
+        return out;
+    }
+
+    public Long getNodeParent(long id){
+        Cursor cursor=db.query("Node",new String[]{"ID_Parent"},"id=?",new String[]{String.valueOf(id)},null,null,null);
+        cursor.moveToFirst();
+        Long out = cursor.isNull(0)?null:cursor.getLong(0);
+        cursor.close();
+        return out;
+    }
+
+    public List<Long> getNodeByTitle(String title){
+        Cursor cursor=db.query("node",new String[]{"ID"},"Title=?",new String[]{title},null,null,null);
+        List<Long> out=new LinkedList<>();
+        while (cursor.moveToNext()){
+            out.add(cursor.getLong(0));
+        }
+        cursor.close();
+        return out;
+    }
+
+    //endregion
+    //region hierarchy
+    public void setNodeParent(long idParent, long idChild){
+        ContentValues values=new ContentValues();
+        values.put("ID_Parent",idParent);
+        db.update("Node",values,"id=?",new String[]{String.valueOf(idChild)});
+    }
+    public List<Long> getNodeChildren(long id){
+        List<Long> out = new LinkedList<>();
+        Cursor cursor=db.query("Node",new String[]{"ID"},"ID_Parent=?",new String[]{String.valueOf(id)},null,null,null);
+        while (cursor.moveToNext()){
+            out.add(cursor.getLong(0));
+        }
+        cursor.close();
+        return out;
+    }
+    //endregion
     //endregion
 
     public void closeDB(){

@@ -26,6 +26,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "\tAlarm  INTEGER NOT NULL ,\n" +
                 "\tPRIMARY KEY (ID)\n" +
                 ");");
+
+        sqLiteDatabase.execSQL("CREATE TABLE Node(\n" +
+                "\tID         INTEGER NOT NULL ,\n" +
+                "\tTitle      TEXT NOT NULL ,\n" +
+                "\tID_Parent    INTEGER,\n" +
+                "\tCONSTRAINT Node_PK PRIMARY KEY (ID)\n" +
+                "\n" +
+                "\t,CONSTRAINT Node_Node_FK FOREIGN KEY (ID_Parent) REFERENCES Node(ID)\n" +
+                ")");
     }
 
     @Override
