@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import java.util.List;
 
 import vincenthudry.organizer.Settings;
-import vincenthudry.organizer.TreeFragment;
+import vincenthudry.organizer.view.tree_layout.TreeFragment;
 import vincenthudry.organizer.model.Database;
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.utils.Tuple2;
