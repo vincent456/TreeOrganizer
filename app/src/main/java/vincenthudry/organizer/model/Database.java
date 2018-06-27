@@ -210,6 +210,13 @@ public class Database {
         cursor.close();
         return out;
     }
+
+    public long addChild(long idParent,String title){
+        long node=addNode(title);
+        setNodeParent(idParent,node);
+        return node;
+    }
+
     //endregion
     //endregion
 

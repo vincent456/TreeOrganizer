@@ -1,6 +1,8 @@
 package vincenthudry.organizer.view.tree_layout;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,8 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.TextView;
 
 import vincenthudry.organizer.R;
+import vincenthudry.organizer.Settings;
+import vincenthudry.organizer.model.Database;
 
 public class TreeFragment extends Fragment {
     public TreeFragment() {
@@ -35,7 +40,9 @@ public class TreeFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    WebView vw;
+    private WebView wv;
+
+    private Long nodeID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,18 +52,45 @@ public class TreeFragment extends Fragment {
 
         //region bind buttons
         Button triggerWebview=v.findViewById(R.id.trigger_webview);
-        vw=v.findViewById(R.id.tree_layout);
-        FloatingActionButton addTreeChild=v.findViewById(R.id.add_tree_child);
+        wv=v.findViewById(R.id.tree_layout);
+        wv.getSettings().setJavaScriptEnabled(true);
+        WebView.setWebContentsDebuggingEnabled(true);
+        Database db=new Database(getContext(),Settings.databaseName);
+        wv.addJavascriptInterface(new WebAppInterface(db),"Android");
+        wv.loadUrl("file:android_asset/tree_view/index.html?1");
+        final FloatingActionButton addTreeChild=v.findViewById(R.id.add_tree_child);
         triggerWebview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                wv.loadUrl("javascript:main()");
             }
         });
         addTreeChild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+                builder.setTitle(R.string.enter_node_title);
+                final View dialView=getLayoutInflater().inflate(R.layout.dialog_text_field,null);
+                builder.setView(dialView);
 
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        TextView tv= dialView.findViewById(R.id.single_text_field);
+                        String nodeTilte=tv.getText().toString();
+
+                        Long nID=nodeID;
+                        Database db=new Database(getContext(),Settings.databaseName);
+                        if(nID==null){
+                            nodeID=db.addNode(nodeTilte);
+                        }
+                        else{
+                            nodeID=db.addChild(nID,nodeTilte);
+                        }
+                    }
+                });
+                builder.show();
             }
         });
         //endregion
