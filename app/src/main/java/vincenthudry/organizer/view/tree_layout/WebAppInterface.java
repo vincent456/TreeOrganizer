@@ -9,12 +9,16 @@ import org.json.JSONObject;
 import java.util.List;
 
 import vincenthudry.organizer.model.Database;
+import vincenthudry.organizer.utils.Box;
+import vincenthudry.organizer.utils.DataTrigger;
 
 public class WebAppInterface {
     private Database db;
+    Box<Long> currentNodeId;
 
-    public WebAppInterface(Database db){
+    public WebAppInterface(Database db, Box<Long> currentNodeId){
         this.db=db;
+        this.currentNodeId=currentNodeId;
     }
 
     @JavascriptInterface
@@ -45,7 +49,9 @@ public class WebAppInterface {
     }
 
     @JavascriptInterface
-    public long getLong(long l){
-        return  l;
+    public void waitForCurrentNodeId(long currentNodeid){
+        this.currentNodeId.object=currentNodeid;
     }
+
+
 }

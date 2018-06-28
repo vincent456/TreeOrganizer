@@ -179,4 +179,4 @@ console.log(current);
 setTree(current);
 }
 
-function getGname(){return Android.getLong(gname);}
+function getgname(){return Android.waitForCurrentNodeId(gname);}
