@@ -81,6 +81,9 @@ public class TreeFragment extends Fragment {
                         String nodeTilte=tv.getText().toString();
 
                         Long nID=nodeID;
+
+
+
                         Database db=new Database(getContext(),Settings.databaseName);
                         if(nID==null){
                             nodeID=db.addNode(nodeTilte);

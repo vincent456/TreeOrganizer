@@ -168,10 +168,15 @@ link.transition().duration(2500)
                 .attr("d",diagonal.projection(function(d){return [d.y,d.x];}));
 };
 
+var gname;
+
 function main(){
 var url = new URL(window.location.href);
 var params=parseInt(url.search.slice(1));
+gname=params;
 var current = JSON.parse(Android.getNode(params));
 console.log(current);
 setTree(current);
 }
+
+function getGname(){return Android.getLong(gname);}

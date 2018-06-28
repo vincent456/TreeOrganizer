@@ -43,4 +43,9 @@ public class WebAppInterface {
     public String getAncestorNode(long id){
         return getNode(db.getNodeParent(id));
     }
+
+    @JavascriptInterface
+    public long getLong(long l){
+        return  l;
+    }
 }
