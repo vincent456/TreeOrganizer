@@ -39,4 +39,8 @@ public class WebAppInterface {
         String r=ret.toString();
         return r;
     }
+    @JavascriptInterface
+    public String getAncestorNode(long id){
+        return getNode(db.getNodeParent(id));
+    }
 }

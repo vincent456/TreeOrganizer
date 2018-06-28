@@ -66,13 +66,13 @@ var link = canvas.selectAll(".link")
      setTimeout(function(){
      var url = new URL(window.location.href);
      var path=url.pathname;
-     window.location.href=path+"?"+obj2.rootID;
-     },25000);
+     window.location.href=path+"?"+obj2.id;
+     },2500);
      //endregion
 });
 
 root.on("click",function(e){
-    var objAncestor= JSON.parse(Android.getNode(parseInt(e.id)));
+    var objAncestor= JSON.parse(Android.getAncestorNode(parseInt(e.id)));
 
     var tree = d3.layout.tree().size([h-50*2,w-50*2]);
     var nodes = tree.nodes(objAncestor);
@@ -120,6 +120,13 @@ root.on("click",function(e){
     link.attr("fill","none")
         .attr("stroke","black");
     link.transition().duration(2500).attr("d",nDiagonal.projection(function(d){return [d.y,d.x];}))
+    //region next page
+         setTimeout(function(){
+         var url = new URL(window.location.href);
+         var path=url.pathname;
+         window.location.href=path+"?"+objAncestor.id;
+         },2500);
+         //endregion
 });
 
 };
