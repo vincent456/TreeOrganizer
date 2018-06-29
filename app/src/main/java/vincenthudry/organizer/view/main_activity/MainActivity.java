@@ -78,12 +78,6 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int NEW_NOTE_REQUEST = 1;
 
-    public void FABClick(View view) {
-        Intent intent = new Intent(this, NoteTakingActivity.class);
-        intent.putExtra("noteID", -1);
-        startActivityForResult(intent, NEW_NOTE_REQUEST);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
