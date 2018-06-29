@@ -43,8 +43,6 @@ public class TreeFragment extends Fragment {
 
     private WebView wv;
 
-    private Long nodeID;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,18 +81,17 @@ public class TreeFragment extends Fragment {
                         TextView tv= dialView.findViewById(R.id.single_text_field);
                         String nodeTilte=tv.getText().toString();
 
-                        Long nID;
-
                         wv.loadUrl("javascript:getgname()");
 
-                        nID= currentNodeIDBox.object;
+                        //currentNodeIDBox.object;
+
 
                         Database db=new Database(getContext(),Settings.databaseName);
-                        if(nID==null){
-                            nodeID=db.addNode(nodeTilte);
+                        if(currentNodeIDBox.object==null){
+                            db.addNode(nodeTilte);
                         }
                         else{
-                            nodeID=db.addChild(nID,nodeTilte);
+                            db.addChild(currentNodeIDBox.object,nodeTilte);
                         }
                     }
                 });

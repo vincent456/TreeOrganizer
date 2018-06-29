@@ -176,6 +176,7 @@ var params=parseInt(url.search.slice(1));
 gname=params;
 var current = JSON.parse(Android.getNode(params));
 console.log(current);
+d3.select(".item1").remove();
 setTree(current);
 }
 
