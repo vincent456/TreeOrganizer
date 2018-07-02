@@ -17,7 +17,6 @@ import android.widget.TextView;
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.Settings;
 import vincenthudry.organizer.model.Database;
-import vincenthudry.organizer.utils.Box;
 
 public class TreeFragment extends Fragment {
     public TreeFragment() {
@@ -55,9 +54,7 @@ public class TreeFragment extends Fragment {
         wv.getSettings().setJavaScriptEnabled(true);
         WebView.setWebContentsDebuggingEnabled(true);
         Database db=new Database(getContext(),Settings.databaseName);
-        final Box<Long> currentNodeIDBox=new Box<Long>();
-        currentNodeIDBox.object=-1L;
-        wv.addJavascriptInterface(new WebAppInterface(db,currentNodeIDBox),"Android");
+        wv.addJavascriptInterface(new WebAppInterface(db),"Android");
         wv.loadUrl("file:android_asset/tree_view/index.html?1");
         final FloatingActionButton addTreeChild=v.findViewById(R.id.add_tree_child);
         triggerWebview.setOnClickListener(new View.OnClickListener() {
@@ -81,18 +78,7 @@ public class TreeFragment extends Fragment {
                         TextView tv= dialView.findViewById(R.id.single_text_field);
                         String nodeTilte=tv.getText().toString();
 
-                        wv.loadUrl("javascript:getgname()");
-
-                        //currentNodeIDBox.object;
-
-
-                        Database db=new Database(getContext(),Settings.databaseName);
-                        if(currentNodeIDBox.object==null){
-                            db.addNode(nodeTilte);
-                        }
-                        else{
-                            db.addChild(currentNodeIDBox.object,nodeTilte);
-                        }
+                        wv.loadUrl("javascript:followJava1(\""+nodeTilte+"\")");
                     }
                 });
                 builder.show();

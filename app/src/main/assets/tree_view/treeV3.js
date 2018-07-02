@@ -168,16 +168,18 @@ link.transition().duration(2500)
                 .attr("d",diagonal.projection(function(d){return [d.y,d.x];}));
 };
 
-var gname;
-
 function main(){
 var url = new URL(window.location.href);
 var params=parseInt(url.search.slice(1));
-gname=params;
 var current = JSON.parse(Android.getNode(params));
 console.log(current);
 d3.select(".item1").remove();
 setTree(current);
 }
 
-function getgname(){return Android.waitForCurrentNodeId(gname);}
+function followJava1(s){
+var url=new URL(window.location.href);
+var param=parseInt(url.search.slice(1));
+newID=Android.followJS1(s,param);
+window.location.href=url.pathname+"?"+newID;
+}

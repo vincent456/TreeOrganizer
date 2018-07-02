@@ -9,16 +9,12 @@ import org.json.JSONObject;
 import java.util.List;
 
 import vincenthudry.organizer.model.Database;
-import vincenthudry.organizer.utils.Box;
-import vincenthudry.organizer.utils.DataTrigger;
 
 public class WebAppInterface {
     private Database db;
-    Box<Long> currentNodeId;
 
-    public WebAppInterface(Database db, Box<Long> currentNodeId){
+    public WebAppInterface(Database db){
         this.db=db;
-        this.currentNodeId=currentNodeId;
     }
 
     @JavascriptInterface
@@ -49,9 +45,7 @@ public class WebAppInterface {
     }
 
     @JavascriptInterface
-    public void waitForCurrentNodeId(long currentNodeid){
-        this.currentNodeId.object=currentNodeid;
+    public long followJS1(String title, long id){
+        return db.addChild(id,title);
     }
-
-
 }
