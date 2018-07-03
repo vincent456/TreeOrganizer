@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="vincenthudry.organizer.view.main_activity.MainActivity">
     <item
+        android:id="@+id/delete_node"
         android:orderInCategory="101"
         android:title="@string/delete_node" />
     <item

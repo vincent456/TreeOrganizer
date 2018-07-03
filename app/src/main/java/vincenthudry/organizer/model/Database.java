@@ -194,6 +194,10 @@ public class Database {
         return out;
     }
 
+    public void deleteNode(long id){
+        db.delete("node","id=?",new String[]{String.valueOf(id)});
+    }
+
     //endregion
     //region hierarchy
     public void setNodeParent(long idParent, long idChild){

@@ -183,3 +183,11 @@ var param=parseInt(url.search.slice(1));
 newID=Android.followJS1(s,param);
 window.location.href=url.pathname+"?"+newID;
 }
+
+function followJava2(){
+var url=new URL(window.location.href);
+var param=parseInt(url.search.slice(1));
+var root=Android.callGetParentNode(param);
+Android.followJS2(param);
+window.location.href=url.pathname+"?"+root;
+}

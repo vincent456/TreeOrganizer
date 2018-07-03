@@ -48,4 +48,21 @@ public class WebAppInterface {
     public long followJS1(String title, long id){
         return db.addChild(id,title);
     }
+
+    @JavascriptInterface
+    public long callGetParentNode(long id){
+        return db.getNodeParent(id);
+    }
+
+    @JavascriptInterface
+    public void followJS2(long id){
+        //if id has root, else can't delete root
+        //set all children of id to root of id
+        //delete node id
+
+        Long root=db.getNodeParent(id);
+        List<Long> children=db.getNodeChildren(id);
+
+        db.deleteNode(id);
+    }
 }
