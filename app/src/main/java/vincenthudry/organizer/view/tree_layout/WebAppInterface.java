@@ -1,6 +1,8 @@
 package vincenthudry.organizer.view.tree_layout;
 
+import android.content.Context;
 import android.webkit.JavascriptInterface;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -8,13 +10,16 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import vincenthudry.organizer.R;
 import vincenthudry.organizer.model.Database;
 
 public class WebAppInterface {
     private Database db;
+    private Context context;
 
-    public WebAppInterface(Database db){
+    public WebAppInterface(Database db,Context context){
         this.db=db;
+        this.context=context;
     }
 
     @JavascriptInterface
@@ -61,7 +66,15 @@ public class WebAppInterface {
         //delete node id
 
         Long root=db.getNodeParent(id);
+        if(root==null){
+            Toast.makeText(context, R.string.cant_delete_root_node,Toast.LENGTH_SHORT).show();
+            return;
+        }
         List<Long> children=db.getNodeChildren(id);
+
+        for(Long l:children){
+            db.setNodeParent(root,l);
+        }
 
         db.deleteNode(id);
     }

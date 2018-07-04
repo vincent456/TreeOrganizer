@@ -24,4 +24,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enter_node_title">enter node title</string>
     <string name="delete_node">Delete Node</string>
+    <string name="cant_delete_root_node">can\'t delete root</string>
 </resources>

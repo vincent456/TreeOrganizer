@@ -33,7 +33,7 @@ node.append("circle")
         .attr("fill","black");
 
 node.append("text")
-    .text(function(d){return d.name;})
+    .text(function(d){return "("+d.id+")"+d.name;})
     .attr("transform","translate(0,-10)");
 
 var link = canvas.selectAll(".link")
@@ -103,7 +103,7 @@ root.on("click",function(e){
         .attr("r",5)
         .attr("fill","black");
     node.append("text")
-        .text(function(d){return d.name})
+        .text(function(d){return "("+d.id+")"+d.name})
         .attr("transform","translate(0,-10)");
     
     node.transition().duration(2500).attr("transform",function(d){return "translate("+d.y+","+d.x+")";});
@@ -150,9 +150,9 @@ node.append("circle")
         .attr("r",5)
         .attr("fill","black");
 node.append("text")
-    .text(function(d){return d.name;})
+    .text(function(d){return "("+d.id+")"+d.name;})
     .attr("transform","translate(0,-10)");
-    
+
 var link = canvas.selectAll(".link")
                     .data(links)
                     .enter()

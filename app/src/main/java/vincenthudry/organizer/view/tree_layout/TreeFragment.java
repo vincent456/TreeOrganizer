@@ -46,16 +46,18 @@ public class TreeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View v = inflater.inflate(R.layout.fragment_tree, container, false);
 
         //region bind buttons
-        Button triggerWebview=v.findViewById(R.id.trigger_webview);
+        Button triggerWebview=v.findViewById(R.id.trigger_js);
         wv=v.findViewById(R.id.tree_layout);
         wv.getSettings().setJavaScriptEnabled(true);
         WebView.setWebContentsDebuggingEnabled(true);
         Database db=new Database(getContext(),Settings.databaseName);
-        wv.addJavascriptInterface(new WebAppInterface(db),"Android");
-        wv.loadUrl("file:android_asset/tree_view/index.html?1");
+        wv.addJavascriptInterface(new WebAppInterface(db,getContext()),"Android");
+
+        wv.loadUrl("file:android_asset/tree_view/index.html?0");
         final FloatingActionButton addTreeChild=v.findViewById(R.id.add_tree_child);
         triggerWebview.setOnClickListener(new View.OnClickListener() {
             @Override

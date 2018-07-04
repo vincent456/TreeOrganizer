@@ -15,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(
                 "CREATE TABLE Notes(\n" +
                         "\tID               INTEGER NOT NULL ,\n" +
-                        "\tTitle            TEXT ,\n" +
+                        "\tTitle            TEXT NOT NULL,\n" +
                         "\tNote             TEXT ,\n" +
                         "\tEncrypted        INTEGER NOT NULL ,\n" +
                         "\tEncryptedData    NONE,\n" +
