@@ -7,11 +7,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import vincenthudry.organizer.R;
@@ -50,7 +53,7 @@ public class TreeFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_tree, container, false);
 
         //region bind buttons
-        Button triggerWebview=v.findViewById(R.id.trigger_js);
+        Button triggerJS=v.findViewById(R.id.trigger_js);
         wv=v.findViewById(R.id.tree_layout);
         wv.getSettings().setJavaScriptEnabled(true);
         WebView.setWebContentsDebuggingEnabled(true);
@@ -59,7 +62,7 @@ public class TreeFragment extends Fragment {
 
         wv.loadUrl("file:android_asset/tree_view/index.html?0");
         final FloatingActionButton addTreeChild=v.findViewById(R.id.add_tree_child);
-        triggerWebview.setOnClickListener(new View.OnClickListener() {
+        triggerJS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 wv.loadUrl("javascript:main()");
@@ -86,6 +89,19 @@ public class TreeFragment extends Fragment {
                 builder.show();
             }
         });
+
+        final EditText nodeSelector = v.findViewById(R.id.node_selector);
+        nodeSelector.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i== EditorInfo.IME_ACTION_DONE){
+                    wv.loadUrl("file:android_asset/tree_view/index.html?"+nodeSelector.getText().toString());
+                    return false;
+                }
+                return false;
+            }
+        });
+
         //endregion
 
         return v;
