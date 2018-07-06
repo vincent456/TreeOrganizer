@@ -165,6 +165,7 @@ public class Database {
     public long addNode(String title){
         ContentValues values=new ContentValues();
         values.put("title",title);
+        values.putNull("id_parent");
         return  db.insert("Node",null,values);
     }
 
@@ -180,7 +181,7 @@ public class Database {
         //TODO : return 0 instead of null
         Cursor cursor=db.query("Node",new String[]{"ID_Parent"},"id=?",new String[]{String.valueOf(id)},null,null,null);
         cursor.moveToFirst();
-        Long out = cursor.isNull(0)?null:cursor.getLong(0);
+        Long out = cursor.getLong(0)==0?null:cursor.getLong(0);
         cursor.close();
         return out;
     }

@@ -3,11 +3,15 @@ package vincenthudry.organizer.model;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    private Context context;
+
     public DatabaseHelper(Context context,String name) {
         super(context, name, null, 1);
+        this.context=context;
     }
 
     @Override
@@ -35,6 +39,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "\n" +
                 "\t,CONSTRAINT Node_Node_FK FOREIGN KEY (ID_Parent) REFERENCES Node(ID)\n" +
                 ")");
+
+        Toast.makeText(context,"Tables created",Toast.LENGTH_SHORT).show();
     }
 
     @Override
