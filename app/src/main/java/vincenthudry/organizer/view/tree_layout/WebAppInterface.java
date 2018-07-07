@@ -56,7 +56,7 @@ public class WebAppInterface {
 
     @JavascriptInterface
     public long callGetParentNode(long id){
-        return db.getNodeParent(id);
+        return db.getNodeParent(id)==null?-1:db.getNodeParent(id);
     }
 
     @JavascriptInterface

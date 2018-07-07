@@ -189,5 +189,7 @@ var url=new URL(window.location.href);
 var param=parseInt(url.search.slice(1));
 var root=Android.callGetParentNode(param);
 Android.followJS2(param);
-window.location.href=url.pathname+"?"+root;
+window.location.href=url.pathname+"?"+(root!=-1?root:param);
 }
+
+main();
