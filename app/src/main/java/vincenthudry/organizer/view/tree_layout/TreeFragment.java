@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.util.Set;
+
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.Settings;
 import vincenthudry.organizer.model.Database;
@@ -59,6 +62,12 @@ public class TreeFragment extends Fragment {
         WebView.setWebContentsDebuggingEnabled(true);
         Database db=new Database(getContext(),Settings.databaseName);
         wv.addJavascriptInterface(new WebAppInterface(db,getContext()),"Android");
+
+        try {
+           Settings.getTreeCheckpoint(getContext());
+        }catch (Exception e){
+            Settings.setTreeCheckpoint(getContext(),0);
+        }
 
         long lastTreeID=Settings.getTreeCheckpoint(getContext());
 
