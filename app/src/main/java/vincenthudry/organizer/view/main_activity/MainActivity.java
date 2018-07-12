@@ -103,9 +103,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        WebView vw = findViewById(R.id.tree_layout);
-        vw.loadUrl("javascript:followJava3()");
         db.closeDB();
         super.onDestroy();
+    }
+    @Override
+    protected void onStop(){
+        WebView vw = findViewById(R.id.tree_layout);
+        vw.loadUrl("javascript:followJava3()");
+        super.onStop();
     }
 }
