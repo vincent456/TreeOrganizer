@@ -192,4 +192,10 @@ Android.followJS2(param);
 window.location.href=url.pathname+"?"+(root!=-1?root:param);
 }
 
+function followJava3(){
+var url = new URL(window.location.href);
+var param=parseInt(url.search.slice(1));
+Android.followJS3(param);
+}
+
 main();

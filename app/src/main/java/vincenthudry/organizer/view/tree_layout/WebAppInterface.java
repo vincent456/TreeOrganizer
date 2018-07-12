@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import vincenthudry.organizer.R;
+import vincenthudry.organizer.Settings;
 import vincenthudry.organizer.model.Database;
 
 public class WebAppInterface {
@@ -77,5 +78,10 @@ public class WebAppInterface {
         }
 
         db.deleteNode(id);
+    }
+
+    @JavascriptInterface
+    public void followJS3(long id){
+        Settings.setTreeCheckpoint(context,id);
     }
 }

@@ -60,7 +60,9 @@ public class TreeFragment extends Fragment {
         Database db=new Database(getContext(),Settings.databaseName);
         wv.addJavascriptInterface(new WebAppInterface(db,getContext()),"Android");
 
-        wv.loadUrl("file:android_asset/tree_view/index.html?0");
+        long lastTreeID=Settings.getTreeCheckpoint(getContext());
+
+        wv.loadUrl("file:android_asset/tree_view/index.html?"+String.valueOf(lastTreeID));
         final FloatingActionButton addTreeChild=v.findViewById(R.id.add_tree_child);
         triggerJS.setOnClickListener(new View.OnClickListener() {
             @Override
