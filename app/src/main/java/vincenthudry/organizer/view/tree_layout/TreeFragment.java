@@ -131,6 +131,7 @@ public class TreeFragment extends Fragment {
                     }
                  }
              });
+             builder.show();
             }
         });
 
