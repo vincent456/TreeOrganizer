@@ -72,7 +72,7 @@ public class TreeFragment extends Fragment {
         long lastTreeID=Settings.getTreeCheckpoint(getContext());
 
         wv.loadUrl("file:android_asset/tree_view/index.html?"+String.valueOf(lastTreeID));
-        final FloatingActionButton addTreeChild=v.findViewById(R.id.add_tree_child);
+        final Button addTreeChild=v.findViewById(R.id.add_tree);
         triggerJS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,6 +110,27 @@ public class TreeFragment extends Fragment {
                     return false;
                 }
                 return false;
+            }
+        });
+
+        Button addItem=v.findViewById(R.id.add_item);
+        addItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+             AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+             builder.setTitle(getString(R.string.get_items));
+             builder.setItems(new String[]{"notes", "time reminders"}, new DialogInterface.OnClickListener() {
+                 @Override
+                 public void onClick(DialogInterface dialogInterface, int i) {
+                    switch (i){
+                        case 0://notes
+                            break;
+                        case 1://time reminders
+                            break;
+                        default:throw new IllegalStateException();
+                    }
+                 }
+             });
             }
         });
 
