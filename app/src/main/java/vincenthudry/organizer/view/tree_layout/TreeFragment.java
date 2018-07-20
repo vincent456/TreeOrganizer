@@ -124,6 +124,9 @@ public class TreeFragment extends Fragment {
              builder.setItems(new String[]{"notes", "time reminders"}, new DialogInterface.OnClickListener() {
                  @Override
                  public void onClick(DialogInterface dialogInterface, int i) {
+                     wv.loadUrl("javascript:followJava");
+
+                     /*
                     switch (i){
                         case 0://notes
                             wv.loadUrl("javascript:");
@@ -131,7 +134,7 @@ public class TreeFragment extends Fragment {
                         case 1://time reminders
                             break;
                         default:throw new IllegalStateException();
-                    }
+                    }*/
                  }
              });
              builder.show();

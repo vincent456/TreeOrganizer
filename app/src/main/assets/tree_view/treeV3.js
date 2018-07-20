@@ -199,4 +199,6 @@ var param=parseInt(url.search.slice(1));
 Android.followJS3(param);
 }
 
+function followJava4()
+
 main();
