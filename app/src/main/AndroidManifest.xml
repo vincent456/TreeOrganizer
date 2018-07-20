@@ -24,7 +24,9 @@
         <receiver
             android:name=".controller.AlarmReciever"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
+
+        <activity android:name=".view.notes_module.NoteListActivity"></activity>
     </application>
 
 </manifest>

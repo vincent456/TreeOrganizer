@@ -3,6 +3,7 @@ package vincenthudry.organizer.view.tree_layout;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -23,6 +24,7 @@ import java.util.Set;
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.Settings;
 import vincenthudry.organizer.model.Database;
+import vincenthudry.organizer.view.notes_module.NoteListActivity;
 
 public class TreeFragment extends Fragment {
     public TreeFragment() {
@@ -124,6 +126,7 @@ public class TreeFragment extends Fragment {
                  public void onClick(DialogInterface dialogInterface, int i) {
                     switch (i){
                         case 0://notes
+                            wv.loadUrl("javascript:");
                             break;
                         case 1://time reminders
                             break;

@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
@@ -24,7 +23,6 @@ import vincenthudry.organizer.utils.Tuple2;
 import vincenthudry.organizer.view.reminders_module.ReminderFragment;
 import vincenthudry.organizer.view.notes_module.TextListAdapter;
 import vincenthudry.organizer.view.notes_module.NoteFragment;
-import vincenthudry.organizer.view.notes_module.NoteTakingActivity;
 
 public class MainActivity extends AppCompatActivity {
 
