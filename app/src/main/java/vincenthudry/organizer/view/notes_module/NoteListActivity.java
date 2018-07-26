@@ -43,7 +43,7 @@ public class NoteListActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode==NoteFragment.NEW_NOTE_REQUEST){
+        if(requestCode==NoteFragment.NEW_NOTE_REQUEST || requestCode == TextListAdapter.UPDATE_RECYCLER){
             if(resultCode==RESULT_OK){
                 NoteFragment fragment = (NoteFragment) getSupportFragmentManager().findFragmentById(R.id.note_list_fragment);
                 fragment.updateRW();

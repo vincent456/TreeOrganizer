@@ -73,7 +73,7 @@ public class WebAppInterface {
         NodesDatabase db=new NodesDatabase(context);
         Long root=db.getNodeParent(id);
         List<Long> children = db.getNodeChildren(id);
-        if(root==null || children.size()==0){
+        if(root==null || !children.isEmpty()){
             Toast.makeText(context, R.string.cant_delete_root_node,Toast.LENGTH_SHORT).show();
             return;
         }
@@ -97,8 +97,11 @@ public class WebAppInterface {
     }
 
     @JavascriptInterface
-    public void FollowJSDeleteNodeContent(long nodeID){
+    public void followJSDeleteNodeContent(long nodeID){
         NotesDatabase notesDatabase=new NotesDatabase(context);
         List<Tuple2<Long,String>> notes = notesDatabase.getAllTitles(nodeID);
+        for(Tuple2<Long,String> t : notes){
+            notesDatabase.deleteNote(t.t1);
+        }
     }
 }

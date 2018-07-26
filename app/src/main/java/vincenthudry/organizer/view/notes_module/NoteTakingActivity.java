@@ -27,7 +27,6 @@ public class NoteTakingActivity extends AppCompatActivity {
     private EditText textTitle;
     private boolean dirty = false;
 
-    private NotesDatabase db;
     private long noteID;
     private long nodeID;
 
@@ -44,7 +43,6 @@ public class NoteTakingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //endregion
 
-        db = new NotesDatabase(this);
         noteID = getIntent().getExtras().getLong("noteID");
         nodeID = getIntent().getExtras().getLong("nodeID");
 
@@ -60,6 +58,7 @@ public class NoteTakingActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(s1 + getSupportActionBar().getTitle());
         actionBarTilte = getSupportActionBar().getTitle().toString();
         if (noteID != -1) {
+            NotesDatabase db = new NotesDatabase(this);
             textTitle.setText(db.getNoteTitle(noteID));
             textNote.setText(db.getNoteContent(noteID));
             dirty = false;
@@ -130,9 +129,11 @@ public class NoteTakingActivity extends AppCompatActivity {
         if (id == R.id.action_delete) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.confirm_delete_note);
+            final Context context = this;
             builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    NotesDatabase db = new NotesDatabase(context);
                     db.deleteNote(noteID);
                     setResult(RESULT_OK);
                     finish();
@@ -156,6 +157,7 @@ public class NoteTakingActivity extends AppCompatActivity {
             builder.setPositiveButton(R.string.ok, null);
             builder.create().show();
         } else {
+            NotesDatabase db = new NotesDatabase(this);
             if (noteID == -1 && dirty)//new note
                 db.addNote(noteTitle, noteString,nodeID);
             else if (dirty) {
@@ -173,8 +175,10 @@ public class NoteTakingActivity extends AppCompatActivity {
 
     public void onEncryptButtonClick(View view) {
         boolean isEncrypted;
-        if (noteID != -1)
+        if (noteID != -1) {
+            NotesDatabase db = new NotesDatabase(this);
             isEncrypted = db.getEncrypted(noteID);
+        }
         else {//noteId==-1
             isEncrypted = false;
         }
@@ -196,6 +200,7 @@ public class NoteTakingActivity extends AppCompatActivity {
                     try {
                         notesModule.decrypt(noteID, password);
                         TextView textContent = findViewById(R.id.textInputNote);
+                        NotesDatabase db = new NotesDatabase(context);
                         textContent.setText(db.getNoteContent(noteID));
                     } catch (Exception e) {
                         Toast.makeText(context, R.string.error_during_decryption, Toast.LENGTH_SHORT).show();
@@ -223,6 +228,7 @@ public class NoteTakingActivity extends AppCompatActivity {
                             TextView noteContent = findViewById(R.id.textInputNote);
                             String noteContentString = noteContent.getText().toString();
                             notesModule.encrypt(noteID,noteContentString, password);
+                            NotesDatabase db = new NotesDatabase(context);
                             noteContent.setText(db.getNoteContent(noteID));
                         }
                     } catch (NotesModule.DoubleEncrypt doubleEncrypt) {
@@ -279,11 +285,5 @@ public class NoteTakingActivity extends AppCompatActivity {
             throw new IllegalStateException();
         setResult(RESULT_OK);
         finish();
-    }
-
-    @Override
-    protected void onDestroy(){
-        db.closeDB();
-        super.onDestroy();
     }
 }

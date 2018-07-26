@@ -26,4 +26,5 @@
     <string name="add_tree">+ tree</string>
     <string name="get_items">get items</string>
     <string name="are_you_sure_to_delete_this_node">Are you sure to delete this node ?</string>
+    <string name="goto_node">Goto Node</string>
 </resources>
