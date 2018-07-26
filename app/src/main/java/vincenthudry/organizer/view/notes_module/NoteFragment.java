@@ -19,6 +19,8 @@ import vincenthudry.organizer.utils.Tuple2;
 public class NoteFragment extends Fragment {
 
     private Context context;
+    private RecyclerView rw;
+    private long nodeID;
 
     public static final int NEW_NOTE_REQUEST = 1;
 
@@ -32,6 +34,8 @@ public class NoteFragment extends Fragment {
 
         final long nodeID=intent.getLongExtra("nodeID",-1);
 
+        this.nodeID=nodeID;
+
         if(nodeID==-1){
             throw new IllegalStateException();
         }
@@ -41,6 +45,7 @@ public class NoteFragment extends Fragment {
         View v=inflater.inflate(R.layout.fragment_note,container,false);
 
         RecyclerView rw=v.findViewById(R.id.notes_list);
+        this.rw=rw;
         List<Tuple2<Long,String>> data=db.getAllTitles(nodeID);
         TextListAdapter adapter=new TextListAdapter(data,getActivity());
         rw.setLayoutManager(new LinearLayoutManager(context));
@@ -60,5 +65,13 @@ public class NoteFragment extends Fragment {
         //endregion
 
         return v;
+    }
+
+    public void updateRW() {
+        NotesDatabase db = new NotesDatabase(context);
+        List<Tuple2<Long,String>> data=db.getAllTitles(nodeID);
+        TextListAdapter adapter=new TextListAdapter(data,getActivity());
+        rw.setLayoutManager(new LinearLayoutManager(context));
+        rw.setAdapter(adapter);
     }
 }

@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager=(ViewPager) findViewById(R.id.view_pager);
         tabAdapter=new TabAdapter(getSupportFragmentManager());
-        tabAdapter.init(new Fragment[]{new NoteFragment(), new ReminderFragment(),TreeFragment.newInstance()});
+        tabAdapter.init(new Fragment[]{new ReminderFragment(),TreeFragment.newInstance()});
         viewPager.setAdapter(tabAdapter);
 
         TabLayout tabLayout= (TabLayout) findViewById(R.id.tab_layout);
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         if(id==R.id.delete_node){
             WebView wv=findViewById(R.id.tree_layout);
             wv.loadUrl("javascript:followJava2()");
+            wv.loadUrl("javascript:followJavaDeleteNodeContent()");
             return true;
         }
 

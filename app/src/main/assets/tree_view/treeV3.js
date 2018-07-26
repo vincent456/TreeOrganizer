@@ -178,6 +178,7 @@ setTree(current);
 Android.followJS3(param);
 }
 
+//region managing nodes
 function followJava1(s){
 var url=new URL(window.location.href);
 var param=parseInt(url.search.slice(1));
@@ -198,11 +199,18 @@ var url = new URL(window.location.href);
 var param=parseInt(url.search.slice(1));
 Android.followJS3(param);
 }
+//endregion
 
 function followJavaModulesIntegration(i){
 var url = new URL(window.location.href);
 var param = parseInt(url.search.slice(1));
 Android.followJSModulesIntegration(param,parseInt(i));
+}
+
+function followJavaDeleteNodeContent(){
+var url = new URL(window.location.href);
+var param = parseInt(url.search.slice(1));
+Android.followJSDeleteNodeContent(param);
 }
 
 main();

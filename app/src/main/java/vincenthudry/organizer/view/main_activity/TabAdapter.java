@@ -21,12 +21,12 @@ public class TabAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return fragments.length;
     }
 
     @Override
     public CharSequence getPageTitle(int position){
-        return (CharSequence) new String[]{"notes","reminders","tree"}[position];
+        return (CharSequence) new String[]{"reminders","tree"}[position];
     }
 
     public Fragment[] getFragments(){

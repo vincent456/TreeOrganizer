@@ -46,11 +46,7 @@ public class NoteTakingActivity extends AppCompatActivity {
 
         db = new NotesDatabase(this);
         noteID = getIntent().getExtras().getLong("noteID");
-        nodeID = getIntent().getLongExtra("nodeID",-1);
-
-        if(nodeID==-1){
-            throw new IllegalStateException();
-        }
+        nodeID = getIntent().getExtras().getLong("nodeID");
 
         //region set titlebar
         String s1;

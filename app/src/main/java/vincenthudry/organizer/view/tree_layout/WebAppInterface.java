@@ -10,9 +10,12 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import vincenthudry.organizer.Modules;
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.Settings;
 import vincenthudry.organizer.model.NodesDatabase;
+import vincenthudry.organizer.model.NotesDatabase;
+import vincenthudry.organizer.utils.Tuple2;
 
 public class WebAppInterface {
     private NodesDatabase db;
@@ -83,5 +86,17 @@ public class WebAppInterface {
     @JavascriptInterface
     public void followJS3(long id){
         Settings.setTreeCheckpoint(context,id);
+    }
+
+    @JavascriptInterface
+    public void followJSModulesIntegration(long nodeID,int i){
+        Modules.data.get(i).t2.putExtra("nodeID",nodeID);
+        context.startActivity(Modules.data.get(i).t2);
+    }
+
+    @JavascriptInterface
+    public void FollowJSDeleteNodeContent(long nodeID){
+        NotesDatabase notesDatabase=new NotesDatabase(context);
+        List<Tuple2<Long,String>> notes = notesDatabase.getAllTitles(nodeID);
     }
 }

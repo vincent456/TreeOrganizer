@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -18,14 +17,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.util.Set;
+import java.util.ArrayList;
 
+import vincenthudry.organizer.Modules;
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.Settings;
-import vincenthudry.organizer.model.Database;
-import vincenthudry.organizer.model.NodesDatabase;
-import vincenthudry.organizer.view.notes_module.NoteListActivity;
+import vincenthudry.organizer.utils.Tuple2;
 
 public class TreeFragment extends Fragment {
     public TreeFragment() {
@@ -121,20 +118,19 @@ public class TreeFragment extends Fragment {
             public void onClick(View view) {
              AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
              builder.setTitle(getString(R.string.get_items));
-             builder.setItems(new String[]{"notes", "time reminders"}, new DialogInterface.OnClickListener() {
+
+             Modules.createInstance(getContext());
+             final ArrayList<Tuple2<String,Intent>> modules = Modules.data;
+
+             String[] titles = new String[modules.size()];
+             for(int i=0;i<modules.size();i++){
+                 titles[i]=modules.get(i).t1;
+                }
+
+             builder.setItems(titles, new DialogInterface.OnClickListener() {
                  @Override
                  public void onClick(DialogInterface dialogInterface, int i) {
-                     wv.loadUrl("javascript:followJavaModulesIntegration");
-
-                     /*
-                    switch (i){
-                        case 0://notes
-                            wv.loadUrl("javascript:");
-                            break;
-                        case 1://time reminders
-                            break;
-                        default:throw new IllegalStateException();
-                    }*/
+                     wv.loadUrl("javascript:followJavaModulesIntegration("+i+")");
                  }
              });
              builder.show();
