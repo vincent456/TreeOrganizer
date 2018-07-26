@@ -18,17 +18,16 @@ import vincenthudry.organizer.model.NotesDatabase;
 import vincenthudry.organizer.utils.Tuple2;
 
 public class WebAppInterface {
-    private NodesDatabase db;
     private Context context;
 
     public WebAppInterface(Context context){
-        this.db=new NodesDatabase(context);
         this.context=context;
     }
 
     @JavascriptInterface
     public String getNode(long id){
         JSONObject ret=new JSONObject();
+        NodesDatabase db=new NodesDatabase(context);
         try {
             ret.accumulate("name", db.getNodeTitle(id));
             ret.accumulate("id",id);
@@ -50,16 +49,19 @@ public class WebAppInterface {
     }
     @JavascriptInterface
     public String getAncestorNode(long id){
+        NodesDatabase db=new NodesDatabase(context);
         return getNode(db.getNodeParent(id));
     }
 
     @JavascriptInterface
     public long followJS1(String title, long id){
+        NodesDatabase db=new NodesDatabase(context);
         return db.addChild(id,title);
     }
 
     @JavascriptInterface
     public long callGetParentNode(long id){
+        NodesDatabase db=new NodesDatabase(context);
         return db.getNodeParent(id)==null?-1:db.getNodeParent(id);
     }
 
@@ -68,7 +70,7 @@ public class WebAppInterface {
         //if id has root, else can't delete root
         //set all children of id to root of id
         //delete node id
-
+        NodesDatabase db=new NodesDatabase(context);
         Long root=db.getNodeParent(id);
         List<Long> children = db.getNodeChildren(id);
         if(root==null || children.size()==0){
