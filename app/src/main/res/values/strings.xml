@@ -25,4 +25,5 @@
     <string name="cant_delete_root_node">can\'t delete root</string>
     <string name="add_tree">+ tree</string>
     <string name="get_items">get items</string>
+    <string name="are_you_sure_to_delete_this_node">Are you sure to delete this node ?</string>
 </resources>

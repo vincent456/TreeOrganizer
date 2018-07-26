@@ -1,9 +1,11 @@
 package vincenthudry.organizer.view.main_activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -65,9 +67,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(id==R.id.delete_node){
-            WebView wv=findViewById(R.id.tree_layout);
-            wv.loadUrl("javascript:followJava2()");
-            wv.loadUrl("javascript:followJavaDeleteNodeContent()");
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.are_you_sure_to_delete_this_node);
+            builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    WebView wv=findViewById(R.id.tree_layout);
+                    wv.loadUrl("javascript:followJava2()");
+                    wv.loadUrl("javascript:followJavaDeleteNodeContent()");
+                }
+            });
+
+            builder.setNegativeButton(R.string.no_cancel,null);
+            builder.create().show();
             return true;
         }
 

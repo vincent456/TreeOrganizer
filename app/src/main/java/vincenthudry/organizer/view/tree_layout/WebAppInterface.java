@@ -70,11 +70,11 @@ public class WebAppInterface {
         //delete node id
 
         Long root=db.getNodeParent(id);
-        if(root==null){
+        List<Long> children = db.getNodeChildren(id);
+        if(root==null || children.size()==0){
             Toast.makeText(context, R.string.cant_delete_root_node,Toast.LENGTH_SHORT).show();
             return;
         }
-        List<Long> children=db.getNodeChildren(id);
 
         for(Long l:children){
             db.setNodeParent(root,l);
