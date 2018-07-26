@@ -1,5 +1,8 @@
 package vincenthudry.organizer.controller;
 
+import android.app.Activity;
+import android.content.Context;
+
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -9,14 +12,14 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
-import vincenthudry.organizer.model.Database;
+import vincenthudry.organizer.model.NotesDatabase;
 
 public class NotesModule {
 
-    Database db;
+    NotesDatabase db;
 
-    public NotesModule(Database db){
-        this.db=db;
+    public NotesModule(Context context){
+        this.db=new NotesDatabase(context);
     }
 
     public class DoubleEncrypt extends Exception{
@@ -66,14 +69,14 @@ public class NotesModule {
         }
     }
 
-    public void addNewEncryptedNote(String noteTitle,String noteText,String password) {
+    public void addNewEncryptedNote(String noteTitle,String noteText,String password,long nodeID) {
         SecretKeySpec secretKeySpec = new SecretKeySpec(password.getBytes(),"Blowfish");
         try {
             Cipher cipher = Cipher.getInstance("Blowfish");
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
             byte[] encrypted = cipher.doFinal(noteText.getBytes());
             //database
-            db.addEncryptedNote(noteTitle,encrypted.toString(),encrypted);
+            db.addEncryptedNote(noteTitle,encrypted.toString(),encrypted,nodeID);
         }
         catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
             throw new RuntimeException(e.getMessage());

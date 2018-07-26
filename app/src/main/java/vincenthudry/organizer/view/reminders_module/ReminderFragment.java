@@ -15,7 +15,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import vincenthudry.organizer.R;
-import vincenthudry.organizer.Settings;
 import vincenthudry.organizer.controller.AlarmManager;
 import vincenthudry.organizer.model.Database;
 import vincenthudry.organizer.utils.Tuple2;
@@ -43,14 +42,14 @@ public class ReminderFragment extends Fragment {
                         calendar.set(Calendar.MINUTE,i1);
                         calendar.set(Calendar.SECOND,0);
 
-                        Database db=new Database(getContext(), Settings.databaseName);
+                        Database db=new Database(getActivity());
 
                         AlarmManager alarmManager=new AlarmManager(getContext(),db);
                         alarmManager.addNewAlarm(calendar.getTimeInMillis());
 
                         RecyclerView rw=v.findViewById(R.id.reminders_list);
                         List<Tuple2<Long,Long>> rwdata=db.getAllReminders();
-                        ListAdapter listAdapter=new ListAdapter(rwdata,getContext(),rw);
+                        ListAdapter listAdapter=new ListAdapter(rwdata,getActivity(),rw);
                         rw.setAdapter(listAdapter);
 
                         Toast.makeText(getContext(),"alarm set for "+calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE),Toast.LENGTH_SHORT).show();
@@ -62,12 +61,12 @@ public class ReminderFragment extends Fragment {
         //endregion
 
         //region populate recyclerView
-        Database db=new Database(getContext(), Settings.databaseName);
+        Database db=new Database(getActivity());
         RecyclerView rw=v.findViewById(R.id.reminders_list);
         AlarmManager alarmManager=new AlarmManager(getContext(),db);
         alarmManager.initAlarms();
         List<Tuple2<Long,Long>> rwdata=db.getAllReminders();
-        ListAdapter listAdapter=new ListAdapter(rwdata,getContext(),rw);
+        ListAdapter listAdapter=new ListAdapter(rwdata,getActivity(),rw);
         rw.setLayoutManager(new LinearLayoutManager(getContext()));
         rw.setAdapter(listAdapter);
         //endregion

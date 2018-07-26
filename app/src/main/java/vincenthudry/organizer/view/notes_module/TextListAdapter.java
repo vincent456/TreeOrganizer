@@ -22,7 +22,7 @@ public class TextListAdapter extends RecyclerView.Adapter<TextListAdapter.ViewHo
 
     public TextListAdapter(List<Tuple2<Long, String>> data, Activity activity) {
         this.data = data;
-        this.activity = activity;
+        this.activity=activity;
     }
 
     @Override

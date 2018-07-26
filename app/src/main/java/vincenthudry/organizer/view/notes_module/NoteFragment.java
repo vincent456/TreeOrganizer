@@ -9,13 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.List;
 
 import vincenthudry.organizer.R;
-import vincenthudry.organizer.Settings;
-import vincenthudry.organizer.model.Database;
+import vincenthudry.organizer.model.NotesDatabase;
 import vincenthudry.organizer.utils.Tuple2;
 
 public class NoteFragment extends Fragment {
@@ -29,12 +27,21 @@ public class NoteFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         context=getContext();
-        Database db=new Database(getContext(),Settings.databaseName);
+
+        Intent intent=getActivity().getIntent();
+
+        final long nodeID=intent.getLongExtra("nodeID",-1);
+
+        if(nodeID==-1){
+            throw new IllegalStateException();
+        }
+
+        NotesDatabase db = new NotesDatabase(context);
 
         View v=inflater.inflate(R.layout.fragment_note,container,false);
 
         RecyclerView rw=v.findViewById(R.id.notes_list);
-        List<Tuple2<Long,String>> data=db.getAllTitles();
+        List<Tuple2<Long,String>> data=db.getAllTitles(nodeID);
         TextListAdapter adapter=new TextListAdapter(data,getActivity());
         rw.setLayoutManager(new LinearLayoutManager(context));
         rw.setAdapter(adapter);
@@ -46,6 +53,7 @@ public class NoteFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent=new Intent(context,NoteTakingActivity.class);
                 intent.putExtra("noteID",-1L);
+                intent.putExtra("nodeID",nodeID);
                 getActivity().startActivityForResult(intent,NEW_NOTE_REQUEST);
             }
         });

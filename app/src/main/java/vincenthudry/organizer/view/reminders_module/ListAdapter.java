@@ -12,7 +12,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import vincenthudry.organizer.R;
-import vincenthudry.organizer.Settings;
 import vincenthudry.organizer.controller.AlarmManager;
 import vincenthudry.organizer.model.Database;
 import vincenthudry.organizer.utils.Tuple2;
@@ -23,7 +22,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private Context context;
     private RecyclerView rw;
 
-    public ListAdapter(List<Tuple2<Long,Long>> data, Context context,RecyclerView rw){
+    public ListAdapter(List<Tuple2<Long,Long>> data, Context context, RecyclerView rw){
         this.data=data;
         this.context=context;
         this.rw=rw;
@@ -43,7 +42,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         holder.btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Database db=new Database(context, Settings.databaseName);
+                Database db=new Database(context);
                 AlarmManager am=new AlarmManager(context,db);
                 am.deleteAlarm(data.get(holder.getAdapterPosition()).t1);
                 data.remove(holder.getAdapterPosition());

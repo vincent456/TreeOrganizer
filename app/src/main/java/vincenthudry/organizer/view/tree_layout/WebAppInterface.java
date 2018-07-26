@@ -12,14 +12,14 @@ import java.util.List;
 
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.Settings;
-import vincenthudry.organizer.model.Database;
+import vincenthudry.organizer.model.NodesDatabase;
 
 public class WebAppInterface {
-    private Database db;
+    private NodesDatabase db;
     private Context context;
 
-    public WebAppInterface(Database db,Context context){
-        this.db=db;
+    public WebAppInterface(Context context){
+        this.db=new NodesDatabase(context);
         this.context=context;
     }
 

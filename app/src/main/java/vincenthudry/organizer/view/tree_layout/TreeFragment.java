@@ -24,6 +24,7 @@ import java.util.Set;
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.Settings;
 import vincenthudry.organizer.model.Database;
+import vincenthudry.organizer.model.NodesDatabase;
 import vincenthudry.organizer.view.notes_module.NoteListActivity;
 
 public class TreeFragment extends Fragment {
@@ -62,8 +63,7 @@ public class TreeFragment extends Fragment {
         wv=v.findViewById(R.id.tree_layout);
         wv.getSettings().setJavaScriptEnabled(true);
         WebView.setWebContentsDebuggingEnabled(true);
-        Database db=new Database(getContext(),Settings.databaseName);
-        wv.addJavascriptInterface(new WebAppInterface(db,getContext()),"Android");
+        wv.addJavascriptInterface(new WebAppInterface(getActivity()),"Android");
 
         try {
            Settings.getTreeCheckpoint(getContext());
@@ -124,7 +124,7 @@ public class TreeFragment extends Fragment {
              builder.setItems(new String[]{"notes", "time reminders"}, new DialogInterface.OnClickListener() {
                  @Override
                  public void onClick(DialogInterface dialogInterface, int i) {
-                     wv.loadUrl("javascript:followJava");
+                     wv.loadUrl("javascript:followJavaModulesIntegration");
 
                      /*
                     switch (i){

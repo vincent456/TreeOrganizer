@@ -11,17 +11,18 @@ import java.util.List;
 import vincenthudry.organizer.utils.Tuple2;
 
 public class Database {
-    private SQLiteDatabase db;
-    private DatabaseHelper dbhp;
-    private Context context;
+    protected static SQLiteDatabase db;
+    protected DatabaseHelper dbhp;
+    protected Context context;
 
-    public Database(Context context,String name){
-        dbhp=new DatabaseHelper(context,name);
-        this.context=context;
-        db=dbhp.getWritableDatabase();
+    public Database(Context context){
+            dbhp = new DatabaseHelper(context);
+            this.context = context;
+            db = dbhp.getWritableDatabase();
     }
 
     //region notes
+    /*
     //region CRUD
     public long addNote(String title,String note){
         ContentValues values=new ContentValues();
@@ -127,7 +128,7 @@ public class Database {
     }
 
     //endregion
-
+*/
     //endregion
 
     //region DateReminders
@@ -161,6 +162,7 @@ public class Database {
     //endregion
 
     //region nodes
+    /*
     //region CRUD
     public long addNode(String title){
         ContentValues values=new ContentValues();
@@ -224,6 +226,7 @@ public class Database {
     }
 
     //endregion
+    */
     //endregion
 
     public void closeDB(){

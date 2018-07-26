@@ -5,12 +5,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
+import vincenthudry.organizer.Settings;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private Context context;
 
-    public DatabaseHelper(Context context,String name) {
-        super(context, name, null, 1);
+    public DatabaseHelper(Context context) {
+        super(context, Settings.databaseName, null, 1);
         this.context=context;
     }
 
@@ -19,12 +21,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(
                 "CREATE TABLE Notes(\n" +
                         "\tID               INTEGER NOT NULL ,\n" +
-                        "\tTitle            TEXT NOT NULL,\n" +
-                        "\tNote             TEXT ,\n" +
+                        "\tTitle            TEXT NOT NULL ,\n" +
+                        "\tNote             TEXT NOT NULL ,\n" +
                         "\tEncrypted        INTEGER NOT NULL ,\n" +
-                        "\tEncryptedData    NONE,\n" +
+                        "\tEncryptedData    NONE ,\n" +
+                        "\tID_Node          INTEGER,\n" +
                         "\tCONSTRAINT Notes_PK PRIMARY KEY (ID)\n" +
-                        ")");
+                        "\n" +
+                        "\t,CONSTRAINT Notes_Node_FK FOREIGN KEY (ID_Node) REFERENCES Node(ID)\n" +
+                        ");");
         sqLiteDatabase.execSQL("CREATE TABLE Reminder(\n" +
                 "\tID     INTEGER NOT NULL ,\n" +
                 "\tAlarm  INTEGER NOT NULL ,\n" +
@@ -40,7 +45,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "\t,CONSTRAINT Node_Node_FK FOREIGN KEY (ID_Parent) REFERENCES Node(ID)\n" +
                 ")");
 
-        Toast.makeText(context,"Tables created",Toast.LENGTH_SHORT).show();
+        try {
+            Toast.makeText(context, "Tables created", Toast.LENGTH_SHORT).show();
+        }
+        catch (RuntimeException e){
+
+        }
     }
 
     @Override

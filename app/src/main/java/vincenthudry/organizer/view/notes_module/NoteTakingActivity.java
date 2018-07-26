@@ -18,9 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import vincenthudry.organizer.controller.NotesModule;
-import vincenthudry.organizer.model.Database;
 import vincenthudry.organizer.R;
-import vincenthudry.organizer.Settings;
+import vincenthudry.organizer.model.NotesDatabase;
 
 public class NoteTakingActivity extends AppCompatActivity {
 
@@ -28,8 +27,9 @@ public class NoteTakingActivity extends AppCompatActivity {
     private EditText textTitle;
     private boolean dirty = false;
 
-    private Database db;
+    private NotesDatabase db;
     private long noteID;
+    private long nodeID;
 
 
     private String actionBarTilte;
@@ -39,13 +39,18 @@ public class NoteTakingActivity extends AppCompatActivity {
         //region setup view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_taking);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
+        Toolbar toolbar = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //endregion
 
-        db = new Database(this, Settings.databaseName);
+        db = new NotesDatabase(this);
         noteID = getIntent().getExtras().getLong("noteID");
+        nodeID = getIntent().getLongExtra("nodeID",-1);
+
+        if(nodeID==-1){
+            throw new IllegalStateException();
+        }
 
         //region set titlebar
         String s1;
@@ -53,8 +58,8 @@ public class NoteTakingActivity extends AppCompatActivity {
             s1 = getString(R.string.new_note);
         else
             s1 = "(" + noteID + ")";
-        textTitle = (EditText) findViewById(R.id.editTextNoteTitle);
-        textNote = (TextInputEditText) findViewById(R.id.textInputNote);
+        textTitle = findViewById(R.id.editTextNoteTitle);
+        textNote = findViewById(R.id.textInputNote);
 
         getSupportActionBar().setTitle(s1 + getSupportActionBar().getTitle());
         actionBarTilte = getSupportActionBar().getTitle().toString();
@@ -122,7 +127,7 @@ public class NoteTakingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // as you specify a parent context in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -156,7 +161,7 @@ public class NoteTakingActivity extends AppCompatActivity {
             builder.create().show();
         } else {
             if (noteID == -1 && dirty)//new note
-                db.addNote(noteTitle, noteString);
+                db.addNote(noteTitle, noteString,nodeID);
             else if (dirty) {
                 db.updateNote(noteID, noteTitle, noteString);
             }
@@ -189,7 +194,7 @@ public class NoteTakingActivity extends AppCompatActivity {
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    NotesModule notesModule = new NotesModule(db);
+                    NotesModule notesModule = new NotesModule(context);
                     TextView tv = dialView.findViewById(R.id.single_password_field);
                     String password = tv.getText().toString();
                     try {
@@ -214,7 +219,7 @@ public class NoteTakingActivity extends AppCompatActivity {
             builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    NotesModule notesModule = new NotesModule(db);
+                    NotesModule notesModule = new NotesModule(context);
                     TextView tv = dialView.findViewById(R.id.single_password_field);
                     String password = tv.getText().toString();
                     try {
@@ -272,8 +277,8 @@ public class NoteTakingActivity extends AppCompatActivity {
         String noteString = textNote.getText().toString();
         String noteTitle = textTitle.getText().toString();
         if (noteID == -1 && dirty) {//new note
-            NotesModule notesModule = new NotesModule(db);
-            notesModule.addNewEncryptedNote(noteTitle,noteString,password);
+            NotesModule notesModule = new NotesModule(this);
+            notesModule.addNewEncryptedNote(noteTitle,noteString,password,nodeID);
         } else
             throw new IllegalStateException();
         setResult(RESULT_OK);

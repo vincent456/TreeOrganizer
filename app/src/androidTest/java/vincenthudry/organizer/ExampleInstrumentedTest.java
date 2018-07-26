@@ -7,6 +7,10 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import vincenthudry.organizer.model.NodesDatabase;
+import vincenthudry.organizer.model.NotesDatabase;
+import vincenthudry.organizer.utils.Tuple2;
+
 import static org.junit.Assert.*;
 
 /**
