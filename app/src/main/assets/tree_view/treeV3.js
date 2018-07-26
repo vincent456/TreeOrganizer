@@ -199,6 +199,10 @@ var param=parseInt(url.search.slice(1));
 Android.followJS3(param);
 }
 
-function followJava4()
+function followJavaModulesIntegration(i){
+var url = new URL(window.location.href);
+var param = parseInt(url.search.slice(1));
+Android.followJSModulesIntegration(param,parseInt(i));
+}
 
 main();
