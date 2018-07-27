@@ -31,9 +31,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         "\t,CONSTRAINT Notes_Node_FK FOREIGN KEY (ID_Node) REFERENCES Node(ID)\n" +
                         ");");
         sqLiteDatabase.execSQL("CREATE TABLE Reminder(\n" +
-                "\tID     INTEGER NOT NULL ,\n" +
-                "\tAlarm  INTEGER NOT NULL ,\n" +
-                "\tPRIMARY KEY (ID)\n" +
+                "\tID         INTEGER NOT NULL ,\n" +
+                "\tAlarm      INTEGER NOT NULL ,\n" +
+                "\tID_Node    INTEGER,\n" +
+                "\tCONSTRAINT Reminder_PK PRIMARY KEY (ID)\n" +
+                "\n" +
+                "\t,CONSTRAINT Reminder_Node_FK FOREIGN KEY (ID_Node) REFERENCES Node(ID)\n" +
                 ");");
 
         sqLiteDatabase.execSQL("CREATE TABLE Node(\n" +
