@@ -55,8 +55,6 @@ public class TreeFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_tree, container, false);
 
-        //region bind buttons
-        Button triggerJS=v.findViewById(R.id.trigger_js);
         wv=v.findViewById(R.id.tree_layout);
         wv.getSettings().setJavaScriptEnabled(true);
         WebView.setWebContentsDebuggingEnabled(true);
@@ -72,12 +70,6 @@ public class TreeFragment extends Fragment {
 
         wv.loadUrl("file:android_asset/tree_view/index.html?"+String.valueOf(lastTreeID));
         final Button addTreeChild=v.findViewById(R.id.add_tree);
-        triggerJS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                wv.loadUrl("javascript:main()");
-            }
-        });
         addTreeChild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
