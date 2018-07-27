@@ -13,7 +13,12 @@ public class Modules {
     public static void createInstance(Context context){
         data=new ArrayList<>();
 
+        /*
+            add each module to data as a new Tuple2<String, Intent>("module name",new Intent(context, ModuleActivity.class));
+         */
         Intent notesModule=new Intent(context, NoteListActivity.class);
         data.add(new Tuple2<String, Intent>("notes",notesModule));
+
+        Intent timeRemindersModule=new Intent()
     }
 }

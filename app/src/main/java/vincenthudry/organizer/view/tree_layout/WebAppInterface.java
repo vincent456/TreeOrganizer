@@ -98,6 +98,11 @@ public class WebAppInterface {
 
     @JavascriptInterface
     public void followJSDeleteNodeContent(long nodeID){
+
+        /*
+            free the data of your modules when the node with ID "nodeID" gets deleted
+         */
+
         NotesDatabase notesDatabase=new NotesDatabase(context);
         List<Tuple2<Long,String>> notes = notesDatabase.getAllTitles(nodeID);
         for(Tuple2<Long,String> t : notes){
