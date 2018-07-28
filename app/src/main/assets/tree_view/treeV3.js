@@ -170,8 +170,8 @@ link.transition().duration(2500)
 
 function main(){
 var url = new URL(window.location.href);
-var params=parseInt(url.search.slice(1));
-var current = JSON.parse(Android.getNode(params));
+var param=parseInt(url.search.slice(1));
+var current = JSON.parse(Android.getNode(param));
 console.log(current);
 d3.select(".item1").remove();
 setTree(current);
@@ -192,6 +192,8 @@ var param=parseInt(url.search.slice(1));
 var root=Android.callGetParentNode(param);
 Android.followJS2(param);
 window.location.href=url.pathname+"?"+(root!=-1?root:param);
+if(param==1){
+window.location.href=url.pathname+"?0"};
 }
 
 function followJava3(){
