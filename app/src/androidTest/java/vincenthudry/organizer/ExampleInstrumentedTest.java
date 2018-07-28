@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 
 import vincenthudry.organizer.model.NodesDatabase;
 import vincenthudry.organizer.model.NotesDatabase;
+import vincenthudry.organizer.model.TodoDatabase;
 import vincenthudry.organizer.utils.Tuple2;
 
 import static org.junit.Assert.*;
@@ -26,5 +27,20 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("vincenthudry.organizer", appContext.getPackageName());
+    }
+    @Test
+    public void test(){
+        Context context=InstrumentationRegistry.getTargetContext();
+        TodoDatabase tddb=new TodoDatabase(context);
+        NodesDatabase ndb = new NodesDatabase(context);
+        tddb.nukeDB();
+        tddb=new TodoDatabase(context);
+        long rootID=ndb.addNode("root");
+        tddb.setTodo(rootID,"test" );
+        String s = tddb.getToDo(rootID);
+        assertTrue(s.equals("test"));
+        tddb.setTodo(rootID,"tot");
+        s = tddb.getToDo(rootID);
+        assertTrue(s.equals("tot"));
     }
 }
