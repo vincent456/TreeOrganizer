@@ -92,6 +92,12 @@ public class WebAppInterface {
     }
 
     @JavascriptInterface
+    public void followJS4(long id, long parent){
+        NodesDatabase ndb = new NodesDatabase(context);
+        ndb.setNodeParent(parent,id);
+    }
+
+    @JavascriptInterface
     public void followJSModulesIntegration(long nodeID,int i){
         Modules.data.get(i).t2.putExtra("nodeID",nodeID);
         context.startActivity(Modules.data.get(i).t2);

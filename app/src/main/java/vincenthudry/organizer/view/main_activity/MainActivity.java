@@ -8,10 +8,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.EditText;
 
+import vincenthudry.organizer.model.NodesDatabase;
 import vincenthudry.organizer.view.tree_layout.TreeFragment;
 import vincenthudry.organizer.model.Database;
 import vincenthudry.organizer.R;
@@ -80,6 +84,27 @@ public class MainActivity extends AppCompatActivity {
 
             builder.setNegativeButton(R.string.no_cancel,null);
             builder.create().show();
+            return true;
+        }
+
+        if(id==R.id.action_rebind_parent){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.set_parent_node);
+            LayoutInflater layoutInflater = getLayoutInflater();
+            final View frameLayout = layoutInflater.inflate(R.layout.dialog_numeric_field,null);
+            builder.setView(frameLayout);
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    WebView wv=findViewById(R.id.tree_layout);
+                    EditText dnf = frameLayout.findViewById(R.id.single_numeric_field_dialog);
+                    int val = Integer.valueOf(dnf.getText().toString());
+                    wv.loadUrl("javascript:followJava4("+String.valueOf(val)+")");
+                }
+            });
+            builder.setNegativeButton(R.string.cancel,null);
+            builder.create().show();
+
             return true;
         }
 

@@ -27,4 +27,6 @@
     <string name="get_items">get items</string>
     <string name="are_you_sure_to_delete_this_node">Are you sure to delete this node ?</string>
     <string name="goto_node">Goto Node</string>
+    <string name="rebind_parent">Rebind Parent</string>
+    <string name="set_parent_node">set parent node id for this node</string>
 </resources>

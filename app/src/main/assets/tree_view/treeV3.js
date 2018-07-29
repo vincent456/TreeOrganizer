@@ -201,6 +201,14 @@ var url = new URL(window.location.href);
 var param=parseInt(url.search.slice(1));
 Android.followJS3(param);
 }
+
+function followJava4(i){
+var url = new URL(window.location.href);
+var param = parseInt(url.search.slice(1));
+Android.followJS4(param,parseInt(i));
+window.location.reload();
+}
+
 //endregion
 
 function followJavaModulesIntegration(i){

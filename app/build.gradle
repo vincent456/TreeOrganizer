@@ -33,4 +33,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
+
+    compile 'com.github.sevar83:indeterminate-checkbox:1.0.5@aar'
 }

@@ -7,6 +7,9 @@
         android:orderInCategory="101"
         android:title="@string/delete_node" />
     <item
+        android:id="@+id/action_rebind_parent"
+        android:title="@string/rebind_parent" />
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="102"
         android:title="@string/action_settings"
