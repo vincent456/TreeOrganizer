@@ -14,6 +14,17 @@ import org.json.JSONObject;
 public class TodoGenerator {
 
     //region JSON
+
+    public static JSONObject createHeaderItem(){
+        JSONObject out = new JSONObject();
+        try {
+            out.accumulate("children",new JSONArray());
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return out;
+    }
+
     public static JSONObject createToDoItem(String text){
         JSONObject out = new JSONObject();
         try {
@@ -92,11 +103,18 @@ public class TodoGenerator {
     //endregion
 
     //region View
-    public static View generateView(JSONObject object, Context context){
+
+    public static LinearLayout generateViewHeader(Context context){
         LinearLayout root = new LinearLayout(context);
         root.setOrientation(LinearLayout.VERTICAL);
+        return root;
+    }
+
+    private static View generateViewItem(JSONObject object, Context context){
+        LinearLayout root = new LinearLayout(context);
+        root.setOrientation(LinearLayout.HORIZONTAL);
         LinearLayout item = new LinearLayout(context);
-        item.setOrientation(LinearLayout.HORIZONTAL);
+        item.setOrientation(LinearLayout.VERTICAL);
 
         IndeterminateCheckBox checked = new IndeterminateCheckBox(context);
         checked.setChecked(getChecked(object));
@@ -105,12 +123,25 @@ public class TodoGenerator {
         text.setText(getText(object));
         text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
 
-        item.addView(checked);
+        root.addView(checked);
+        root.addView(item);
         item.addView(text);
 
-        root.addView(item);
-
         return root;
+    }
+
+    public static void generateSubView(LinearLayout header,Context context,JSONObject object){
+        JSONArray l1_items = getSubTasks(object);
+        int l1_l=l1_items.length();
+        for(int i=0;i<l1_l;i++){
+            View item = null;
+            try {
+                item = generateViewItem(l1_items.getJSONObject(i),context);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            header.addView(item);
+        }
     }
     //endregion
 }

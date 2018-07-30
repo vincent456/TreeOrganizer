@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import org.json.JSONObject;
 
@@ -34,10 +35,13 @@ public class TodoActivity extends AppCompatActivity {
         TodoDatabase tddb = new TodoDatabase(this);
         String todoDataString = tddb.getToDo(nodeID);
         //data = TodoGenerator.fromString(todoDataString);
-        data = TodoGenerator.createToDoItem("test item");
+        data = TodoGenerator.createHeaderItem();
+        JSONObject item1=TodoGenerator.createToDoItem("test");
+        TodoGenerator.addSubTask(data,item1);
         //endregion
         //region init view
-        View view = TodoGenerator.generateView(data,this);
+        LinearLayout view = TodoGenerator.generateViewHeader(this);
+        TodoGenerator.generateSubView(view,this,data);
         FrameLayout fl = findViewById(R.id.todo_frame);
         view.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT));
         fl.addView(view);
