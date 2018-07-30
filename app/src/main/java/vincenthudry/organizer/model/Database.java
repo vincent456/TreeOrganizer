@@ -180,7 +180,7 @@ public class Database {
     }
 
     public Long getNodeParent(long id){
-        //TODO : return 0 instead of null
+
         Cursor cursor=db.query("Node",new String[]{"ID_Parent"},"id=?",new String[]{String.valueOf(id)},null,null,null);
         cursor.moveToFirst();
         Long out = cursor.getLong(0)==0?null:cursor.getLong(0);

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import vincenthudry.organizer.utils.Tuple2;
 import vincenthudry.organizer.view.notes_module.NoteListActivity;
 import vincenthudry.organizer.view.reminders_module.TimeRemidersActivity;
+import vincenthudry.organizer.view.todo_view.TodoActivity;
 
 public class Modules {
     public static ArrayList<Tuple2<String,Intent>> data;
@@ -24,5 +25,10 @@ public class Modules {
         Intent timeRemindersModule=new Intent(context, TimeRemidersActivity.class);
         data.add(new Tuple2<String, Intent>("time reminders",timeRemindersModule));
         */
+        //TODO: implement reminders
+
+
+        Intent todoModule = new Intent(context, TodoActivity.class);
+        data.add(new Tuple2<String, Intent>("Todo list",todoModule));
     }
 }

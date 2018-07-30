@@ -36,8 +36,8 @@ public class NodesDatabase extends Database {
         return out;
     }
 
-    public List<Long> getNodeByTitle(String title){
-        Cursor cursor=db.query("node",new String[]{"ID"},"Title=?",new String[]{title},null,null,null);
+    public List<Long> getNodeByTitleStart(String title){
+        Cursor cursor=db.query("node",new String[]{"ID"},"Title LIKE ?",new String[]{title+"%"},null,null,null);
         List<Long> out=new LinkedList<>();
         while (cursor.moveToNext()){
             out.add(cursor.getLong(0));

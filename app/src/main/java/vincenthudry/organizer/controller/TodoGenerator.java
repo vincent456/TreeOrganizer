@@ -108,6 +108,8 @@ public class TodoGenerator {
         item.addView(checked);
         item.addView(text);
 
+        root.addView(item);
+
         return root;
     }
     //endregion

@@ -35,7 +35,6 @@ public class TreeFragment extends Fragment {
      *
      * @return A new instance of fragment TreeFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static TreeFragment newInstance() {
         TreeFragment fragment = new TreeFragment();
         return fragment;
@@ -155,7 +154,6 @@ public class TreeFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }
