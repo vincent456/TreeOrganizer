@@ -11,6 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import vincenthudry.organizer.view.todo_view.NumberedEditText;
+
 public class TodoGenerator {
 
     //region JSON
@@ -102,6 +104,10 @@ public class TodoGenerator {
     }
     //endregion
 
+    //region numbers
+
+    //endregion
+
     //region View
 
     public static LinearLayout generateViewHeader(Context context){
@@ -119,13 +125,31 @@ public class TodoGenerator {
         IndeterminateCheckBox checked = new IndeterminateCheckBox(context);
         checked.setChecked(getChecked(object));
         checked.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
-        EditText text = new EditText(context);
+        NumberedEditText text = new NumberedEditText(context);
         text.setText(getText(object));
-        text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+        text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
 
         root.addView(checked);
         root.addView(item);
         item.addView(text);
+
+
+        JSONArray children;
+        try {
+            children = object.getJSONArray("children");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        int cl=children.length();
+        for (int i=0;i<cl;i++){
+            JSONObject item_i;
+            try {
+                item_i = children.getJSONObject(i);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            item.addView(generateViewItem(item_i,context));
+        }
 
         return root;
     }
