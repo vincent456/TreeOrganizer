@@ -14,8 +14,7 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
-    <FrameLayout
-        android:id="@+id/todo_frame"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/toolbar6"
@@ -23,7 +22,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar5">
 
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/todo_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/toolbar6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar5">
+
+        </FrameLayout>
+    </ScrollView>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar6"
@@ -47,7 +56,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/toolbar6"
         app:layout_constraintStart_toStartOf="@+id/toolbar6"
         app:layout_constraintTop_toTopOf="@+id/toolbar6"
-        app:srcCompat="@drawable/ic_round_add_24px" />
+        app:srcCompat="@drawable/ic_round_add_24px"
+        android:onClick="add_todo_click"/>
 
     <ImageButton
         android:id="@+id/remove_todo"
@@ -60,7 +70,8 @@
         app:layout_constraintStart_toEndOf="@+id/add_todo"
         app:layout_constraintTop_toTopOf="@+id/toolbar6"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/ic_round_remove_24px" />
+        app:srcCompat="@drawable/ic_round_remove_24px"
+        android:onClick="remove_todo_click"/>
 
     <ImageButton
         android:id="@+id/decrease_todo_indent"
@@ -73,7 +84,8 @@
         app:layout_constraintStart_toEndOf="@+id/remove_todo"
         app:layout_constraintTop_toTopOf="@+id/toolbar6"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_round_arrow_back_24px" />
+        app:srcCompat="@drawable/ic_round_arrow_back_24px"
+        android:onClick="decrease_todo_indent_click"/>
 
     <ImageButton
         android:id="@+id/increase_todo_indent"
@@ -85,5 +97,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/toolbar6"
         app:layout_constraintStart_toEndOf="@+id/decrease_todo_indent"
         app:layout_constraintTop_toTopOf="@+id/toolbar6"
-        app:srcCompat="@drawable/ic_round_arrow_forward_24px" />
+        app:srcCompat="@drawable/ic_round_arrow_forward_24px"
+        android:onClick="increase_todo_indent_click"/>
 </android.support.constraint.ConstraintLayout>

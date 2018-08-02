@@ -2,7 +2,7 @@ package vincenthudry.organizer.controller;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.EditText;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.buildware.widget.indeterm.IndeterminateCheckBox;
@@ -10,6 +10,9 @@ import com.buildware.widget.indeterm.IndeterminateCheckBox;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import vincenthudry.organizer.view.todo_view.NumberedEditText;
 
@@ -97,7 +100,14 @@ public class TodoGenerator {
 
     public static JSONObject fromString(String s){
         try {
-            return new JSONObject(s);
+            if(s.equals("")){
+                JSONObject out = new JSONObject();
+                out.accumulate("children",new JSONArray());
+                return out;
+            }
+            else {
+                return new JSONObject(s);
+            }
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -105,7 +115,32 @@ public class TodoGenerator {
     //endregion
 
     //region numbers
+    public static List<NumberedEditText> getAllNumberedEditText(LinearLayout ll){
+        List<NumberedEditText> out = new LinkedList<>();
+        getAllNumberedEditText_Rec(ll,out);
+        return out;
+    }
 
+    private static void getAllNumberedEditText_Rec(ViewGroup vg,List<NumberedEditText> data){
+        for(int i=0;i<vg.getChildCount();i++){
+            View v = vg.getChildAt(i);
+            if(v instanceof NumberedEditText){
+                data.add((NumberedEditText) v);
+            }
+            if(v instanceof ViewGroup){
+                getAllNumberedEditText_Rec((ViewGroup) v,data);
+            }
+        }
+    }
+
+    public static void setNumbersNumberedEditText(List<NumberedEditText> list){
+        int i=0;
+        for (NumberedEditText nmet :
+                list) {
+            nmet.number=i;
+            i++;
+        }
+    }
     //endregion
 
     //region View
@@ -133,7 +168,6 @@ public class TodoGenerator {
         root.addView(item);
         item.addView(text);
 
-
         JSONArray children;
         try {
             children = object.getJSONArray("children");
@@ -155,10 +189,11 @@ public class TodoGenerator {
     }
 
     public static void generateSubView(LinearLayout header,Context context,JSONObject object){
+        header.removeAllViews();
         JSONArray l1_items = getSubTasks(object);
         int l1_l=l1_items.length();
         for(int i=0;i<l1_l;i++){
-            View item = null;
+            View item;
             try {
                 item = generateViewItem(l1_items.getJSONObject(i),context);
             } catch (JSONException e) {

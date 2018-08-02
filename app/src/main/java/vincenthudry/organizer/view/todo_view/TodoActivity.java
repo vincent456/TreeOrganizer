@@ -1,5 +1,6 @@
 package vincenthudry.organizer.view.todo_view;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +18,7 @@ public class TodoActivity extends AppCompatActivity {
 
     private JSONObject data;
     private long nodeID;
+    private LinearLayout header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +36,12 @@ public class TodoActivity extends AppCompatActivity {
         }
         TodoDatabase tddb = new TodoDatabase(this);
         String todoDataString = tddb.getToDo(nodeID);
-        data = TodoGenerator.fromString(todoDataString);
         //endregion
+
+        data=TodoGenerator.fromString(todoDataString);
         //region init view
         LinearLayout view = TodoGenerator.generateViewHeader(this);
+        header= view;
         TodoGenerator.generateSubView(view,this,data);
         FrameLayout fl = findViewById(R.id.todo_frame);
         view.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT));
@@ -49,5 +53,25 @@ public class TodoActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    public void add_todo_click(View view) {
+        View v = getCurrentFocus();
+        if(v instanceof NumberedEditText){
+
+        }
+        else {
+            TodoGenerator.addSubTask(data,TodoGenerator.createToDoItem(""));
+            TodoGenerator.generateSubView(header,this,data);
+        }
+    }
+
+    public void remove_todo_click(View view) {
+    }
+
+    public void decrease_todo_indent_click(View view) {
+    }
+
+    public void increase_todo_indent_click(View view) {
     }
 }
