@@ -34,14 +34,7 @@ public class TodoActivity extends AppCompatActivity {
         }
         TodoDatabase tddb = new TodoDatabase(this);
         String todoDataString = tddb.getToDo(nodeID);
-        //data = TodoGenerator.fromString(todoDataString);
-        data = TodoGenerator.createHeaderItem();
-        JSONObject item1=TodoGenerator.createToDoItem("item 1");
-        TodoGenerator.addSubTask(data,item1);
-        JSONObject item2=TodoGenerator.createToDoItem("item 2");
-        TodoGenerator.addSubTask(data,item2);
-        JSONObject item11=TodoGenerator.createToDoItem("item 1 1");
-        TodoGenerator.addSubTask(item1,item11);
+        data = TodoGenerator.fromString(todoDataString);
         //endregion
         //region init view
         LinearLayout view = TodoGenerator.generateViewHeader(this);
