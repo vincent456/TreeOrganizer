@@ -4,13 +4,11 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import vincenthudry.organizer.model.NodesDatabase;
-import vincenthudry.organizer.model.NotesDatabase;
-import vincenthudry.organizer.model.TodoDatabase;
-import vincenthudry.organizer.utils.Tuple2;
+import vincenthudry.organizer.controller.TodoGenerator;
 
 import static org.junit.Assert.*;
 
@@ -31,16 +29,23 @@ public class ExampleInstrumentedTest {
     @Test
     public void test(){
         Context context=InstrumentationRegistry.getTargetContext();
-        TodoDatabase tddb=new TodoDatabase(context);
-        NodesDatabase ndb = new NodesDatabase(context);
-        tddb.nukeDB();
-        tddb=new TodoDatabase(context);
-        long rootID=ndb.addNode("root");
-        tddb.setTodo(rootID,"test" );
-        String s = tddb.getToDo(rootID);
-        assertTrue(s.equals("test"));
-        tddb.setTodo(rootID,"tot");
-        s = tddb.getToDo(rootID);
-        assertTrue(s.equals("tot"));
+
+        JSONObject root = TodoGenerator.fromString("");
+        JSONObject oject1=TodoGenerator.createToDoItem("1");
+        TodoGenerator.addSubTask(root,oject1);
+        JSONObject object11 = TodoGenerator.createToDoItem("11");
+        TodoGenerator.addSubTask(oject1,object11);
+        JSONObject object2=TodoGenerator.createToDoItem("2");
+        TodoGenerator.addSubTask(root,object2);
+
+        TodoGenerator.setNumbersData(root);
+        assertEquals(0,TodoGenerator.getID(root));
+        assertEquals(1,TodoGenerator.getID(oject1));
+        assertEquals(2,TodoGenerator.getID(object11));
+        assertEquals(3,TodoGenerator.getID(object2));
+        TodoGenerator.setParents(root);
+        assertEquals(0,TodoGenerator.getParent(oject1));
+        assertEquals(1,TodoGenerator.getParent(object11));
+        assertEquals(0,TodoGenerator.getParent(object2));
     }
 }

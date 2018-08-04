@@ -58,6 +58,9 @@ public class TodoActivity extends AppCompatActivity {
     public void add_todo_click(View view) {
         View v = getCurrentFocus();
         if(v instanceof NumberedEditText){
+            TodoGenerator.setNumbersNumberedEditText(TodoGenerator.getAllNumberedEditText(header));
+            TodoGenerator.setNumbersData(data);
+            int id = ((NumberedEditText) v).number;
 
         }
         else {

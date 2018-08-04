@@ -20,16 +20,6 @@ public class TodoGenerator {
 
     //region JSON
 
-    public static JSONObject createHeaderItem(){
-        JSONObject out = new JSONObject();
-        try {
-            out.accumulate("children",new JSONArray());
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-        return out;
-    }
-
     public static JSONObject createToDoItem(String text){
         JSONObject out = new JSONObject();
         try {
@@ -112,6 +102,69 @@ public class TodoGenerator {
             throw new RuntimeException(e);
         }
     }
+
+    //region metadata
+    public static JSONObject generateEmptyMetaData(){
+        JSONObject out = new JSONObject();
+        try {
+            out.accumulate("parent",-1);
+            out.accumulate("id",-1);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return out;
+    }
+
+    public static void setMetadata(JSONObject object,JSONObject metadata){
+        try {
+            object.put("metadata",metadata);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static JSONObject getMetadata(JSONObject object){
+        try {
+            return object.getJSONObject("metadata");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void setParent(JSONObject metadata,int parent){
+        try {
+            metadata.put("parent",parent);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static int getParent(JSONObject metadata){
+        try {
+            return metadata.getInt("parent");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void setID(JSONObject metadata,int id){
+        try {
+            metadata.put("id",id);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static int getID(JSONObject metadata){
+        try {
+            return metadata.getInt("id");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //endregion
+
     //endregion
 
     //region numbers
@@ -134,13 +187,140 @@ public class TodoGenerator {
     }
 
     public static void setNumbersNumberedEditText(List<NumberedEditText> list){
-        int i=0;
+        int i=1;
         for (NumberedEditText nmet :
                 list) {
             nmet.number=i;
             i++;
         }
     }
+
+    private static int number;
+    public static void setNumbersData(JSONObject data){
+        number=0;
+        setNumbersData_Rec(data);
+        number=0;
+    }
+
+    private static void setNumbersData_Rec(JSONObject data){
+        try {
+            data.put("id",number);
+            number++;
+            JSONArray children = data.getJSONArray("children");
+            int c_l=children.length();
+            for(int i=0;i<c_l;i++){
+                JSONObject child=children.getJSONObject(i);
+                setNumbersData_Rec(child);
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void clearNumbers(JSONObject data){
+        data.remove("id");
+        JSONArray children;
+        try {
+            children = data.getJSONArray("children");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        int cl=children.length();
+        for(int i=0;i<cl;i++){
+            JSONObject child;
+            try {
+                child=children.getJSONObject(i);
+                child.remove("id");
+                clearNumbers(child);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public JSONObject getByNumber(int number, JSONObject object){
+        if(!object.has("id")){
+            return null;
+        }
+
+        int id;
+        try {
+            id=object.getInt("id");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        if(id==number){
+            return object;
+        }
+        else {
+            JSONArray children;
+            try {
+                children=object.getJSONArray("children");
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            int cl=children.length();
+            for(int i=0;i<cl;i++){
+                JSONObject child;
+                try {
+                    child=children.getJSONObject(i);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                JSONObject res=getByNumber(number,child);
+                if(res!=null){
+                    return res;
+                }
+            }
+
+            return null;
+
+        }
+    }
+
+    public static void setParents(JSONObject data){
+        JSONArray children;
+        try {
+            children = data.getJSONArray("children");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        int cl=children.length();
+        int id = getID(data);
+        JSONObject child;
+        for(int i=0;i<cl;i++){
+            try {
+                child = children.getJSONObject(i);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            setParent(child,id);
+            setParents(child);
+        }
+    }
+
+    public void clearParents(JSONObject data){
+        data.remove("parent");
+        JSONArray children;
+        try {
+            children = data.getJSONArray("children");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        int cl=children.length();
+        for(int i=0;i<cl;i++){
+            JSONObject child;
+            try {
+                child=children.getJSONObject(i);
+                child.remove("parent");
+                clearNumbers(child);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     //endregion
 
     //region View
