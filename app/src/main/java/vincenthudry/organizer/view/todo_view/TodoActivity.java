@@ -4,8 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
 
 import vincenthudry.organizer.R;
+import vincenthudry.organizer.controller.TodoDataObjectModel.TodoLayoutItem;
 import vincenthudry.organizer.model.TodoDatabase;
 
 public class TodoActivity extends AppCompatActivity {
@@ -29,6 +32,12 @@ public class TodoActivity extends AppCompatActivity {
         }
         TodoDatabase tddb = new TodoDatabase(this);
         String todoDataString = tddb.getToDo(nodeID);
+
+        //region test
+        TodoLayoutItem tdli=new TodoLayoutItem(this);
+        FrameLayout fl = findViewById(R.id.todo_frame);
+        fl.addView(tdli.root);
+        //endregion
         //endregion
     }
 
@@ -48,5 +57,10 @@ public class TodoActivity extends AppCompatActivity {
     }
 
     public void increase_todo_indent_click(View view) {
+    }
+
+    public void hide_keyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
     }
 }
