@@ -8,8 +8,6 @@ import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import vincenthudry.organizer.controller.TodoGenerator;
-
 import static org.junit.Assert.*;
 
 /**
