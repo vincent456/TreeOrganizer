@@ -1,4 +1,4 @@
-package vincenthudry.organizer.controller.TodoDataObjectModel;
+package vincenthudry.organizer.model.TodoDataObjectModel;
 
 import android.content.Context;
 import android.widget.EditText;

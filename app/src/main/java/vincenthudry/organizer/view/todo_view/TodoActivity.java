@@ -8,7 +8,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
 import vincenthudry.organizer.R;
-import vincenthudry.organizer.controller.TodoDataObjectModel.TodoLayoutItem;
+import vincenthudry.organizer.model.TodoDataObjectModel.TodoLayoutItem;
 import vincenthudry.organizer.model.TodoDatabase;
 
 public class TodoActivity extends AppCompatActivity {
