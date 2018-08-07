@@ -38,7 +38,8 @@ public class TodoActivity extends AppCompatActivity {
         //region test
         TodoDOMHeaderItem header = new TodoDOMHeaderItem(this);
         TodoDOMItem item1=new TodoDOMItem(this);
-
+        item1.setChecked(true);
+        item1.setText("test text");
         header.addChild(item1);
         header.setupViewItem();
 

@@ -25,7 +25,7 @@ public class TodoDOMHeaderItem {
     }
 
     public void setupViewItem(){
-        viewItem.getChildren().removeAllViews();;
+        viewItem.getChildren().removeAllViews();
         for(TodoDOMItem item:children) {
 
             View childView = item.getViewItem().getRoot();

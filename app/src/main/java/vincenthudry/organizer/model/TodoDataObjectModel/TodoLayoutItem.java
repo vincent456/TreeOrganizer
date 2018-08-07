@@ -48,4 +48,12 @@ public class TodoLayoutItem {
         item.addView(text);
         item.addView(children);
     }
+
+    public void setChecked(boolean checked) {
+        this.checked.setChecked(checked);
+    }
+
+    public void setText(String text) {
+        this.text.setText(text);
+    }
 }
