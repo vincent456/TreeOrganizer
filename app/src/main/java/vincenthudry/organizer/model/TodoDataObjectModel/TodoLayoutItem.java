@@ -7,10 +7,27 @@ import android.widget.LinearLayout;
 import com.buildware.widget.indeterm.IndeterminateCheckBox;
 
 public class TodoLayoutItem {
-    public LinearLayout root;
-    public IndeterminateCheckBox checked;
-    public EditText text;
-    public LinearLayout children;
+
+    private LinearLayout root;
+    private IndeterminateCheckBox checked;
+    private EditText text;
+    private LinearLayout children;
+
+    public LinearLayout getRoot() {
+        return root;
+    }
+
+    public IndeterminateCheckBox getChecked() {
+        return checked;
+    }
+
+    public EditText getText() {
+        return text;
+    }
+
+    public LinearLayout getChildren() {
+        return children;
+    }
 
     public TodoLayoutItem(Context context){
         root=new LinearLayout(context);

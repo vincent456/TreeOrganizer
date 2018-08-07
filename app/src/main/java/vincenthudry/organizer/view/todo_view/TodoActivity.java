@@ -8,6 +8,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
 import vincenthudry.organizer.R;
+import vincenthudry.organizer.model.TodoDataObjectModel.TodoDOMHeaderItem;
+import vincenthudry.organizer.model.TodoDataObjectModel.TodoDOMItem;
 import vincenthudry.organizer.model.TodoDataObjectModel.TodoLayoutItem;
 import vincenthudry.organizer.model.TodoDatabase;
 
@@ -34,9 +36,14 @@ public class TodoActivity extends AppCompatActivity {
         String todoDataString = tddb.getToDo(nodeID);
 
         //region test
-        TodoLayoutItem tdli=new TodoLayoutItem(this);
+        TodoDOMHeaderItem header = new TodoDOMHeaderItem(this);
+        TodoDOMItem item1=new TodoDOMItem(this);
+
+        header.addChild(item1);
+        header.setupViewItem();
+
         FrameLayout fl = findViewById(R.id.todo_frame);
-        fl.addView(tdli.root);
+        fl.addView(header.getViewItem().getChildren());
         //endregion
         //endregion
     }
