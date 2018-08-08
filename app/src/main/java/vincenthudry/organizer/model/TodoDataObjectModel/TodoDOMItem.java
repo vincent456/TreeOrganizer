@@ -2,12 +2,14 @@ package vincenthudry.organizer.model.TodoDataObjectModel;
 
 import android.content.Context;
 
+import org.json.JSONObject;
+
 import java.util.LinkedList;
 import java.util.List;
 
-public class TodoDOMItem {
+public class TodoDOMItem implements TodoDOMItemParentableInterface{
     private List<TodoDOMItem> children;
-    private TodoDOMItem parent;
+    private TodoDOMItemParentableInterface parent;
     private TodoLayoutItem viewItem;
 
     public TodoDOMItem(Context context){
@@ -20,7 +22,7 @@ public class TodoDOMItem {
         return viewItem;
     }
 
-    public void setParent(TodoDOMItem parent) {
+    public void setParent(TodoDOMItemParentableInterface parent) {
         this.parent = parent;
     }
 
@@ -45,4 +47,7 @@ public class TodoDOMItem {
         child.setParent(this);
     }
 
+    public JSONObject generateJSON() {
+
+    }
 }

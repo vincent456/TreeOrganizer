@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
+import org.json.JSONObject;
+
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.model.TodoDataObjectModel.TodoDOMHeaderItem;
 import vincenthudry.organizer.model.TodoDataObjectModel.TodoDOMItem;
@@ -17,6 +19,7 @@ public class TodoActivity extends AppCompatActivity {
 
 
     private long nodeID;
+    private TodoDOMHeaderItem header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +39,14 @@ public class TodoActivity extends AppCompatActivity {
         String todoDataString = tddb.getToDo(nodeID);
 
         //region test
-        TodoDOMHeaderItem header = new TodoDOMHeaderItem(this);
+        header = new TodoDOMHeaderItem(this);
         TodoDOMItem item1=new TodoDOMItem(this);
         item1.setChecked(true);
         item1.setText("test text");
         header.addChild(item1);
+        TodoDOMItem item2=new TodoDOMItem(this);
+        header.addChild(item2);
+
         header.setupViewItem();
 
         FrameLayout fl = findViewById(R.id.todo_frame);
@@ -70,5 +76,12 @@ public class TodoActivity extends AppCompatActivity {
     public void hide_keyboard(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+    }
+
+    @Override
+    public void onStop(){
+        TodoDatabase tddb = new TodoDatabase(this);
+        JSONObject headerJSON = header.generateJSON();
+        tddb.setTodo(nodeID,headerJSON.toString());
     }
 }
