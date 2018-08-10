@@ -8,7 +8,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class TodoDOMHeaderItem implements TodoDOMItemParentableInterface{
@@ -33,8 +32,8 @@ public class TodoDOMHeaderItem implements TodoDOMItemParentableInterface{
     public void setupViewItem(){
         viewItem.getChildren().removeAllViews();
         for(TodoDOMItem item:children) {
-
             View childView = item.getViewItem().getRoot();
+            item.setupViewItem();
             viewItem.getChildren().addView(childView);
         }
     }
@@ -52,5 +51,34 @@ public class TodoDOMHeaderItem implements TodoDOMItemParentableInterface{
             children.put(child);
         }
         return out;
+    }
+
+    public void fromJSON(String todoDataString,Context context) {
+        if(todoDataString.equals("")){
+           return;
+        }
+        JSONObject object= null;
+        try {
+            object = new JSONObject(todoDataString);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        JSONArray children = null;
+        try {
+            children = object.getJSONArray("children");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        int cl=children.length();
+        for(int i=0;i<cl;i++){
+            JSONObject child;
+            try {
+                child = children.getJSONObject(i);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            TodoDOMItem tdi = new TodoDOMItem(context,child);
+            this.addChild(tdi);
+        }
     }
 }

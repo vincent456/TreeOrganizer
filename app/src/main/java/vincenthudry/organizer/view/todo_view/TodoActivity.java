@@ -40,12 +40,15 @@ public class TodoActivity extends AppCompatActivity {
 
         //region test
         header = new TodoDOMHeaderItem(this);
+        header.fromJSON(todoDataString,this);
         TodoDOMItem item1=new TodoDOMItem(this);
         item1.setChecked(true);
         item1.setText("test text");
         header.addChild(item1);
         TodoDOMItem item2=new TodoDOMItem(this);
         header.addChild(item2);
+        TodoDOMItem item11 = new TodoDOMItem(this);
+        item1.addChild(item11);
 
         header.setupViewItem();
 
@@ -83,5 +86,6 @@ public class TodoActivity extends AppCompatActivity {
         TodoDatabase tddb = new TodoDatabase(this);
         JSONObject headerJSON = header.generateJSON();
         tddb.setTodo(nodeID,headerJSON.toString());
+        super.onStop();
     }
 }
