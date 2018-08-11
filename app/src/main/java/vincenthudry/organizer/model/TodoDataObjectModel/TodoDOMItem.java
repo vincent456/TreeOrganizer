@@ -110,6 +110,11 @@ public class TodoDOMItem extends TodoItemAncestor{
         }
     }
 
+    @Override
+    public void removeChild(TodoDOMItem item) {
+        children.remove(item);
+    }
+
     public TodoItemAncestor getParent() {
         return parent;
     }

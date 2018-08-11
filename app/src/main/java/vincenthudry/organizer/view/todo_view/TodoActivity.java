@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -70,6 +71,15 @@ public class TodoActivity extends AppCompatActivity {
     }
 
     public void remove_todo_click(View view) {
+        if(!(getCurrentFocus() instanceof ParentableEditText)) {
+            Toast.makeText(this, getString(R.string.todo_no_item_selected), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        ParentableEditText v = (ParentableEditText)getCurrentFocus();
+        TodoDOMItem item = v.parent;
+        TodoItemAncestor parent = item.getParent();
+        parent.removeChild(item);
+        parent.setupViewItem();
     }
 
     public void decrease_todo_indent_click(View view) {

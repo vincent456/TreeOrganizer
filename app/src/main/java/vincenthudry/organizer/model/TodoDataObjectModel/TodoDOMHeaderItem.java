@@ -38,6 +38,11 @@ public class TodoDOMHeaderItem extends TodoItemAncestor{
         }
     }
 
+    @Override
+    public void removeChild(TodoDOMItem item) {
+        children.remove(item);
+    }
+
     public JSONObject generateJSON() {
         JSONObject out = new JSONObject();
         JSONArray children = new JSONArray();
