@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import org.json.JSONObject;
@@ -14,8 +13,7 @@ import vincenthudry.organizer.R;
 import vincenthudry.organizer.model.TodoDataObjectModel.ParentableEditText;
 import vincenthudry.organizer.model.TodoDataObjectModel.TodoDOMHeaderItem;
 import vincenthudry.organizer.model.TodoDataObjectModel.TodoDOMItem;
-import vincenthudry.organizer.model.TodoDataObjectModel.TodoDOMItemParentableInterface;
-import vincenthudry.organizer.model.TodoDataObjectModel.TodoLayoutItem;
+import vincenthudry.organizer.model.TodoDataObjectModel.TodoItemAncestor;
 import vincenthudry.organizer.model.TodoDatabase;
 
 public class TodoActivity extends AppCompatActivity {
@@ -59,9 +57,10 @@ public class TodoActivity extends AppCompatActivity {
 
     public void add_todo_click(View view) {
         if(getCurrentFocus() instanceof ParentableEditText){
-            TodoDOMItem item  =((ParentableEditText)getCurrentFocus()).item;
-            TodoDOMItemParentableInterface parent = item.getParent();
-            
+            TodoDOMItem item  =((ParentableEditText)getCurrentFocus()).parent;
+            TodoItemAncestor current = item.getParent();
+            current.addChild(new TodoDOMItem(this));
+            current.setupViewItem();
         }
         else {
             TodoDOMItem item = new TodoDOMItem(this);

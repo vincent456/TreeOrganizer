@@ -58,9 +58,9 @@ public class TodoLayoutItem {
     }
 
     public void setParent(TodoDOMItem parent){
-        text.item=parent;
+        text.parent =parent;
     }
     public TodoDOMItem getParent(){
-        return text.item;
+        return text.parent;
     }
 }

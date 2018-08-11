@@ -9,9 +9,9 @@ import org.json.JSONObject;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TodoDOMItem implements TodoDOMItemParentableInterface{
+public class TodoDOMItem extends TodoItemAncestor{
     private List<TodoDOMItem> children;
-    private TodoDOMItemParentableInterface parent;
+    private TodoItemAncestor parent;
     private TodoLayoutItem viewItem;
 
     public TodoDOMItem(Context context){
@@ -56,7 +56,7 @@ public class TodoDOMItem implements TodoDOMItemParentableInterface{
         return viewItem;
     }
 
-    public void setParent(TodoDOMItemParentableInterface parent) {
+    public void setParent(TodoItemAncestor parent) {
         this.parent = parent;
     }
 
@@ -110,7 +110,7 @@ public class TodoDOMItem implements TodoDOMItemParentableInterface{
         }
     }
 
-    public TodoDOMItemParentableInterface getParent() {
+    public TodoItemAncestor getParent() {
         return parent;
     }
 }

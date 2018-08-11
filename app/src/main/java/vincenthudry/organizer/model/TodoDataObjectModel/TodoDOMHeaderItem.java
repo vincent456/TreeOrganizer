@@ -2,7 +2,6 @@ package vincenthudry.organizer.model.TodoDataObjectModel;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.EditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,7 +10,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TodoDOMHeaderItem implements TodoDOMItemParentableInterface{
+public class TodoDOMHeaderItem extends TodoItemAncestor{
     private List<TodoDOMItem> children;
     private TodoDOMHeaderLayoutItem viewItem;
 
@@ -81,5 +80,10 @@ public class TodoDOMHeaderItem implements TodoDOMItemParentableInterface{
             TodoDOMItem tdi = new TodoDOMItem(context,child);
             this.addChild(tdi);
         }
+    }
+
+    @Override
+    public TodoItemAncestor getParent() {
+        return null;
     }
 }
