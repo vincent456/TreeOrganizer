@@ -10,7 +10,7 @@ public class TodoLayoutItem {
 
     private LinearLayout root;
     private IndeterminateCheckBox checked;
-    private EditText text;
+    private ParentableEditText text;
     private LinearLayout children;
 
     public LinearLayout getRoot() {
@@ -29,24 +29,24 @@ public class TodoLayoutItem {
         return children;
     }
 
-    public TodoLayoutItem(Context context){
+    public TodoLayoutItem(Context context,TodoDOMItem item){
         root=new LinearLayout(context);
         root.setOrientation(LinearLayout.HORIZONTAL);
 
         checked=new IndeterminateCheckBox(context);
         checked.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
-        text=new EditText(context);
+        text=new ParentableEditText(context,item);
         text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         children=new LinearLayout(context);
         children.setOrientation(LinearLayout.VERTICAL);
-        LinearLayout item = new LinearLayout(context);
-        item.setOrientation(LinearLayout.VERTICAL);
-        item.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+        LinearLayout layoutitem = new LinearLayout(context);
+        layoutitem.setOrientation(LinearLayout.VERTICAL);
+        layoutitem.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
 
         root.addView(checked);
-        root.addView(item);
-        item.addView(text);
-        item.addView(children);
+        root.addView(layoutitem);
+        layoutitem.addView(text);
+        layoutitem.addView(children);
     }
 
     public void setChecked(boolean checked) {
@@ -55,5 +55,12 @@ public class TodoLayoutItem {
 
     public void setText(String text) {
         this.text.setText(text);
+    }
+
+    public void setParent(TodoDOMItem parent){
+        text.item=parent;
+    }
+    public TodoDOMItem getParent(){
+        return text.item;
     }
 }

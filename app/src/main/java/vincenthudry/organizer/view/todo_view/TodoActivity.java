@@ -5,13 +5,16 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import org.json.JSONObject;
 
 import vincenthudry.organizer.R;
+import vincenthudry.organizer.model.TodoDataObjectModel.ParentableEditText;
 import vincenthudry.organizer.model.TodoDataObjectModel.TodoDOMHeaderItem;
 import vincenthudry.organizer.model.TodoDataObjectModel.TodoDOMItem;
+import vincenthudry.organizer.model.TodoDataObjectModel.TodoDOMItemParentableInterface;
 import vincenthudry.organizer.model.TodoDataObjectModel.TodoLayoutItem;
 import vincenthudry.organizer.model.TodoDatabase;
 
@@ -38,23 +41,13 @@ public class TodoActivity extends AppCompatActivity {
         TodoDatabase tddb = new TodoDatabase(this);
         String todoDataString = tddb.getToDo(nodeID);
 
-        //region test
         header = new TodoDOMHeaderItem(this);
         header.fromJSON(todoDataString,this);
-        TodoDOMItem item1=new TodoDOMItem(this);
-        item1.setChecked(true);
-        item1.setText("test text");
-        header.addChild(item1);
-        TodoDOMItem item2=new TodoDOMItem(this);
-        header.addChild(item2);
-        TodoDOMItem item11 = new TodoDOMItem(this);
-        item1.addChild(item11);
-
         header.setupViewItem();
 
         FrameLayout fl = findViewById(R.id.todo_frame);
         fl.addView(header.getViewItem().getChildren());
-        //endregion
+
         //endregion
     }
 
@@ -65,6 +58,16 @@ public class TodoActivity extends AppCompatActivity {
     }
 
     public void add_todo_click(View view) {
+        if(getCurrentFocus() instanceof ParentableEditText){
+            TodoDOMItem item  =((ParentableEditText)getCurrentFocus()).item;
+            TodoDOMItemParentableInterface parent = item.getParent();
+            
+        }
+        else {
+            TodoDOMItem item = new TodoDOMItem(this);
+            header.addChild(item);
+            header.setupViewItem();
+        }
     }
 
     public void remove_todo_click(View view) {

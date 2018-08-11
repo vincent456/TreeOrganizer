@@ -2,6 +2,7 @@ package vincenthudry.organizer.model.TodoDataObjectModel;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.EditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;

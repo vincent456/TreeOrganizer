@@ -15,13 +15,13 @@ public class TodoDOMItem implements TodoDOMItemParentableInterface{
     private TodoLayoutItem viewItem;
 
     public TodoDOMItem(Context context){
-        viewItem = new TodoLayoutItem(context);
+        viewItem = new TodoLayoutItem(context,this);
         children=new LinkedList<>();
         parent = null;
     }
 
     public TodoDOMItem(Context context, JSONObject child) {
-        viewItem = new TodoLayoutItem(context);
+        viewItem = new TodoLayoutItem(context,this);
         children=new LinkedList<>();
         parent=null;
         try {
@@ -108,5 +108,9 @@ public class TodoDOMItem implements TodoDOMItemParentableInterface{
             child.setupViewItem();
             viewItem.getChildren().addView(child.getViewItem().getRoot());
         }
+    }
+
+    public TodoDOMItemParentableInterface getParent() {
+        return parent;
     }
 }
