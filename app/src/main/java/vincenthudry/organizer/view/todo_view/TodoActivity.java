@@ -83,9 +83,36 @@ public class TodoActivity extends AppCompatActivity {
     }
 
     public void decrease_todo_indent_click(View view) {
+        if(!(getCurrentFocus() instanceof  ParentableEditText)){
+            Toast.makeText(this,getString(R.string.todo_no_item_selected),Toast.LENGTH_SHORT).show();
+            return;
+        }
+        ParentableEditText v = (ParentableEditText)getCurrentFocus();
+        TodoDOMItem item = v.parent;
+        TodoItemAncestor parent = item.getParent();
     }
 
     public void increase_todo_indent_click(View view) {
+        if(!(getCurrentFocus() instanceof  ParentableEditText)){
+            Toast.makeText(this,getString(R.string.todo_no_item_selected),Toast.LENGTH_SHORT).show();
+            return;
+        }
+        ParentableEditText v = (ParentableEditText)getCurrentFocus();
+        TodoDOMItem item = v.parent;
+        TodoItemAncestor parent = item.getParent();
+        int i = parent.getChildIndex(item);
+        int ip = i-1;
+        TodoDOMItem up;
+        try {
+            up = parent.getIthChild(ip);
+            up.addChild(item);
+            parent.removeChild(item);
+            parent.setupViewItem();
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            Toast.makeText(this,getString(R.string.default_error_message),Toast.LENGTH_SHORT).show();
+            return;
+        }
     }
 
     public void hide_keyboard(View view) {

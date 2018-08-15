@@ -8,10 +8,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TodoDOMHeaderItem extends TodoItemAncestor{
-    private List<TodoDOMItem> children;
+    private ArrayList<TodoDOMItem> children;
     private TodoDOMHeaderLayoutItem viewItem;
 
 
@@ -41,6 +40,16 @@ public class TodoDOMHeaderItem extends TodoItemAncestor{
     @Override
     public void removeChild(TodoDOMItem item) {
         children.remove(item);
+    }
+
+    @Override
+    public int getChildIndex(TodoDOMItem item) {
+        return children.indexOf(item);
+    }
+
+    @Override
+    public TodoDOMItem getIthChild(int i) {
+        return children.get(i);
     }
 
     public JSONObject generateJSON() {

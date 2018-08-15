@@ -6,4 +6,6 @@ public abstract class TodoItemAncestor {
     public abstract void setupViewItem();
 
     public abstract void removeChild(TodoDOMItem item);
+    public abstract int getChildIndex(TodoDOMItem item);
+    public abstract TodoDOMItem getIthChild(int i);
 }

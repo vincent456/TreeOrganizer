@@ -6,23 +6,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayList;
 
 public class TodoDOMItem extends TodoItemAncestor{
-    private List<TodoDOMItem> children;
+    private ArrayList<TodoDOMItem> children;
     private TodoItemAncestor parent;
     private TodoLayoutItem viewItem;
 
     public TodoDOMItem(Context context){
         viewItem = new TodoLayoutItem(context,this);
-        children=new LinkedList<>();
+        children=new ArrayList<>();
         parent = null;
     }
 
     public TodoDOMItem(Context context, JSONObject child) {
         viewItem = new TodoLayoutItem(context,this);
-        children=new LinkedList<>();
+        children=new ArrayList<>();
         parent=null;
         try {
             setChecked(child.getBoolean("checked"));
@@ -113,6 +112,16 @@ public class TodoDOMItem extends TodoItemAncestor{
     @Override
     public void removeChild(TodoDOMItem item) {
         children.remove(item);
+    }
+
+    @Override
+    public int getChildIndex(TodoDOMItem item) {
+        return children.indexOf(item);
+    }
+
+    @Override
+    public TodoDOMItem getIthChild(int i) {
+        return children.get(i);
     }
 
     public TodoItemAncestor getParent() {
