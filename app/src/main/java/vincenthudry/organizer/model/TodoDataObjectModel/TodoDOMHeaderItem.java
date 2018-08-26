@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class TodoDOMHeaderItem extends TodoItemAncestor{
-    private ArrayList<TodoDOMItem> children;
+   // private ArrayList<TodoDOMItem> children;
     private TodoDOMHeaderLayoutItem viewItem;
 
 

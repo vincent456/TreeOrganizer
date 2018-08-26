@@ -62,7 +62,7 @@ public class TodoActivity extends AppCompatActivity {
             TodoItemAncestor current = item.getParent();
             TodoDOMItem ch=new TodoDOMItem(this);
             ch.getViewItem().getText().requestFocus();
-            current.addChild(ch);
+            current.addAfter(ch,item);
             current.setupViewItem();
         }
         else {
@@ -87,13 +87,18 @@ public class TodoActivity extends AppCompatActivity {
     }
 
     public void decrease_todo_indent_click(View view) {
-        if(!(getCurrentFocus() instanceof  ParentableEditText)){
-            Toast.makeText(this,getString(R.string.todo_no_item_selected),Toast.LENGTH_SHORT).show();
+        if(!(getCurrentFocus() instanceof  ParentableEditText)) {
+            Toast.makeText(this, getString(R.string.todo_no_item_selected), Toast.LENGTH_SHORT).show();
             return;
         }
-        ParentableEditText v = (ParentableEditText)getCurrentFocus();
-        TodoDOMItem item = v.parent;
-        TodoItemAncestor parent = item.getParent();
+        TodoDOMItem current = ((ParentableEditText)getCurrentFocus()).parent;
+        TodoItemAncestor parent = current.getParent();
+        if(parent instanceof TodoDOMHeaderItem){
+            Toast.makeText(this,getString(R.string.default_error_message),Toast.LENGTH_SHORT).show();
+            return;
+        }
+        TodoItemAncestor grandParent = parent.getParent();
+
     }
 
     public void increase_todo_indent_click(View view) {

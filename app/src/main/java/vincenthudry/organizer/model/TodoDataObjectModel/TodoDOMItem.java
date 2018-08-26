@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class TodoDOMItem extends TodoItemAncestor{
-    private ArrayList<TodoDOMItem> children;
+    //private ArrayList<TodoDOMItem> children;
     private TodoItemAncestor parent;
     private TodoLayoutItem viewItem;
 
@@ -126,5 +126,9 @@ public class TodoDOMItem extends TodoItemAncestor{
 
     public TodoItemAncestor getParent() {
         return parent;
+    }
+
+    public ArrayList<TodoDOMItem> getChildren() {
+        return children;
     }
 }
