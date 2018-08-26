@@ -13,16 +13,16 @@ public class TodoDOMItem extends TodoItemAncestor{
     private TodoItemAncestor parent;
     private TodoLayoutItem viewItem;
 
-    public TodoDOMItem(Context context){
+    public TodoDOMItem(Context context,TodoItemAncestor parent){
         viewItem = new TodoLayoutItem(context,this);
         children=new ArrayList<>();
-        parent = null;
+        this.parent = parent;
     }
 
-    public TodoDOMItem(Context context, JSONObject child) {
+    public TodoDOMItem(Context context, JSONObject child,TodoItemAncestor parent) {
         viewItem = new TodoLayoutItem(context,this);
         children=new ArrayList<>();
-        parent=null;
+        this.parent=parent;
         try {
             setChecked(child.getBoolean("checked"));
         } catch (JSONException e) {
@@ -47,7 +47,7 @@ public class TodoDOMItem extends TodoItemAncestor{
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
-            addChild(new TodoDOMItem(context,child_l));
+            addChild(new TodoDOMItem(context,child_l,this));
         }
     }
 

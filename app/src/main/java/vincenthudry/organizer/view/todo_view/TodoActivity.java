@@ -59,14 +59,14 @@ public class TodoActivity extends AppCompatActivity {
     public void add_todo_click(View view) {
         if(getCurrentFocus() instanceof ParentableEditText){
             TodoDOMItem item  =((ParentableEditText)getCurrentFocus()).parent;
-            TodoItemAncestor current = item.getParent();
-            TodoDOMItem ch=new TodoDOMItem(this);
+            TodoItemAncestor parent = item.getParent();
+            TodoDOMItem ch=new TodoDOMItem(this,parent);
             ch.getViewItem().getText().requestFocus();
-            current.addAfter(ch,item);
-            current.setupViewItem();
+            parent.addAfter(ch,item);
+            parent.setupViewItem();
         }
         else {
-            TodoDOMItem item = new TodoDOMItem(this);
+            TodoDOMItem item = new TodoDOMItem(this,header);
             item.getViewItem().getText().requestFocus();
             header.addChild(item);
             header.setupViewItem();

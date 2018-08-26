@@ -91,7 +91,7 @@ public class TodoDOMHeaderItem extends TodoItemAncestor{
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
-            TodoDOMItem tdi = new TodoDOMItem(context,child);
+            TodoDOMItem tdi = new TodoDOMItem(context,child,this);
             this.addChild(tdi);
         }
     }
