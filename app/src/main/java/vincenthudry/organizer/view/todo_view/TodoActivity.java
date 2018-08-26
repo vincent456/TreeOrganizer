@@ -60,17 +60,21 @@ public class TodoActivity extends AppCompatActivity {
         if(getCurrentFocus() instanceof ParentableEditText){
             TodoDOMItem item  =((ParentableEditText)getCurrentFocus()).parent;
             TodoItemAncestor current = item.getParent();
-            current.addChild(new TodoDOMItem(this));
+            TodoDOMItem ch=new TodoDOMItem(this);
+            ch.getViewItem().getText().requestFocus();
+            current.addChild(ch);
             current.setupViewItem();
         }
         else {
             TodoDOMItem item = new TodoDOMItem(this);
+            item.getViewItem().getText().requestFocus();
             header.addChild(item);
             header.setupViewItem();
         }
     }
 
     public void remove_todo_click(View view) {
+        hide_keyboard(view);
         if(!(getCurrentFocus() instanceof ParentableEditText)) {
             Toast.makeText(this, getString(R.string.todo_no_item_selected), Toast.LENGTH_SHORT).show();
             return;
@@ -116,8 +120,13 @@ public class TodoActivity extends AppCompatActivity {
     }
 
     public void hide_keyboard(View view) {
-        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+        try {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        catch (Exception e){
+            Toast.makeText(this,getString(R.string.default_error_message),Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

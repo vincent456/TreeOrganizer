@@ -14,9 +14,9 @@
     <string name="yes">Yes</string>
     <string name="no_cancel">No/Cancel</string>
     <string name="please_specify_note_title">You must specify a title to your note</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="prompt_enter_password">enter password for encryption/decryption</string>
-    <string name="error_during_decryption">An error occured in decryption</string>
+    <string name="error_during_decryption">An error occurred in decryption</string>
     <string name="enter_password">enter password for encryption/decryption</string>
     <string name="please_enter_password_for_encrypted_note">enter password for save as encrypted</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
