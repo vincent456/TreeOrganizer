@@ -31,4 +31,5 @@
     <string name="set_parent_node">set parent node id for this node</string>
     <string name="todo_no_item_selected">no item selected</string>
     <string name="default_error_message">I can\'t do that</string>
+    <string name="dismiss_keyboard">select an item then dismiss the keyboard</string>
 </resources>

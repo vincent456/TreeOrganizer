@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.model.TodoDataObjectModel.ParentableEditText;
 import vincenthudry.organizer.model.TodoDataObjectModel.TodoDOMHeaderItem;
@@ -62,7 +64,8 @@ public class TodoActivity extends AppCompatActivity {
             TodoItemAncestor parent = item.getParent();
             TodoDOMItem ch=new TodoDOMItem(this,parent);
             ch.getViewItem().getText().requestFocus();
-            parent.addAfter(ch,item);
+            int i = parent.getChildIndex(item);
+            parent.addChild(i+1,ch);
             parent.setupViewItem();
         }
         else {
@@ -82,7 +85,15 @@ public class TodoActivity extends AppCompatActivity {
         ParentableEditText v = (ParentableEditText)getCurrentFocus();
         TodoDOMItem item = v.parent;
         TodoItemAncestor parent = item.getParent();
+
+        int i =parent.getChildIndex(item);
+
         parent.removeChild(item);
+        ArrayList<TodoDOMItem> children = item.getChildren();
+        for(TodoDOMItem tdi : children)
+            tdi.setParent(parent);
+        parent.addChild(i,children);
+
         parent.setupViewItem();
     }
 
@@ -130,7 +141,7 @@ public class TodoActivity extends AppCompatActivity {
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         catch (Exception e){
-            Toast.makeText(this,getString(R.string.default_error_message),Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.dismiss_keyboard,Toast.LENGTH_SHORT).show();
         }
     }
 

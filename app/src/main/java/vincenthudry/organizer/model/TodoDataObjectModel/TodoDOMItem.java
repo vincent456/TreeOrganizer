@@ -104,8 +104,9 @@ public class TodoDOMItem extends TodoItemAncestor{
     public void setupViewItem() {
         viewItem.getChildren().removeAllViews();
         for(TodoDOMItem child:children){
-            child.setupViewItem();
+
             viewItem.getChildren().addView(child.getViewItem().getRoot());
+            child.setupViewItem();
         }
     }
 

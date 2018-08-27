@@ -17,7 +17,10 @@ public abstract class TodoItemAncestor {
         return children;
     }
 
-    public void addAfter(TodoDOMItem child, TodoDOMItem prev) {
-        children.add(children.indexOf(prev)+1,child);
+    public void addChild(int index,TodoDOMItem child) {
+        children.add(index,child);
+    }
+    public void addChild(int index, ArrayList<TodoDOMItem> children){
+        this.children.addAll(index,children);
     }
 }
