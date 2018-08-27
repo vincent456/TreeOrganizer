@@ -85,15 +85,18 @@ public class TodoActivity extends AppCompatActivity {
         ParentableEditText v = (ParentableEditText)getCurrentFocus();
         TodoDOMItem item = v.parent;
         TodoItemAncestor parent = item.getParent();
-
         int i =parent.getChildIndex(item);
-
         parent.removeChild(item);
-        ArrayList<TodoDOMItem> children = item.getChildren();
-        for(TodoDOMItem tdi : children)
-            tdi.setParent(parent);
-        item.getViewItem().getChildren().removeAllViews();
-        parent.addChild(i,children);
+
+        //region keep children
+
+           // ArrayList<TodoDOMItem> children = item.getChildren();
+           // for (TodoDOMItem tdi : children)
+           //     tdi.setParent(parent);
+           // item.getViewItem().getChildren().removeAllViews();
+           // parent.addChild(i, children);
+
+        //endregion
 
         parent.setupViewItem();
     }
@@ -110,6 +113,7 @@ public class TodoActivity extends AppCompatActivity {
             return;
         }
         TodoItemAncestor grandParent = parent.getParent();
+
 
     }
 
