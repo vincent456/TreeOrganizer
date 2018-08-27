@@ -132,4 +132,9 @@ public class TodoDOMItem extends TodoItemAncestor{
     public ArrayList<TodoDOMItem> getChildren() {
         return children;
     }
+
+    @Override
+    public String toString(){
+        return viewItem.getText().getText().toString();
+    }
 }

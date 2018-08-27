@@ -92,6 +92,7 @@ public class TodoActivity extends AppCompatActivity {
         ArrayList<TodoDOMItem> children = item.getChildren();
         for(TodoDOMItem tdi : children)
             tdi.setParent(parent);
+        item.getViewItem().getChildren().removeAllViews();
         parent.addChild(i,children);
 
         parent.setupViewItem();
