@@ -19,8 +19,12 @@ public abstract class TodoItemAncestor {
 
     public void addChild(int index,TodoDOMItem child) {
         children.add(index,child);
+        child.setParent(this);
     }
     public void addChild(int index, ArrayList<TodoDOMItem> children){
         this.children.addAll(index,children);
+        for(TodoDOMItem child : children){
+            child.setParent(this);
+        }
     }
 }

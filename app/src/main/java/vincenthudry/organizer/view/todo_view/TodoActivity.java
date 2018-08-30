@@ -113,8 +113,12 @@ public class TodoActivity extends AppCompatActivity {
             return;
         }
         TodoItemAncestor grandParent = parent.getParent();
-
-
+        int parentI=grandParent.getChildIndex((TodoDOMItem) parent);
+        int pi1=parentI+1;
+        parent.removeChild(current);
+        ((TodoDOMItem) parent).getViewItem().getChildren().removeView(current.getViewItem().getRoot());
+        grandParent.addChild(pi1,current);
+        grandParent.setupViewItem();
     }
 
     public void increase_todo_indent_click(View view) {

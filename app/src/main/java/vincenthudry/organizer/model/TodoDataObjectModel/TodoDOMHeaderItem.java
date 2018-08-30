@@ -33,7 +33,12 @@ public class TodoDOMHeaderItem extends TodoItemAncestor{
         for(TodoDOMItem item:children) {
             View childView = item.getViewItem().getRoot();
             item.setupViewItem();
-            viewItem.getChildren().addView(childView);
+            try {
+                viewItem.getChildren().addView(childView);
+            }
+            catch (Exception e){
+                int i=1;
+            }
         }
     }
 
@@ -99,5 +104,10 @@ public class TodoDOMHeaderItem extends TodoItemAncestor{
     @Override
     public TodoItemAncestor getParent() {
         return null;
+    }
+
+    @Override
+    public String toString(){
+        return "header";
     }
 }
