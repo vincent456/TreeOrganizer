@@ -161,4 +161,39 @@ public class TodoActivity extends AppCompatActivity {
         tddb.setTodo(nodeID,headerJSON.toString());
         super.onStop();
     }
+
+    public void up_todo(View view) {
+        if(!(getCurrentFocus() instanceof ParentableEditText)){
+            Toast.makeText(this,getString(R.string.todo_no_item_selected),Toast.LENGTH_SHORT).show();
+            return;
+        }
+        TodoDOMItem current = ((ParentableEditText)getCurrentFocus()).parent;
+        TodoItemAncestor parent = current.getParent();
+        int i = parent.getChildIndex(current);
+        int i1=i-1;
+        if(i1<0) {
+            //Toast.makeText(this, getString(R.string.default_error_message), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        parent.removeChild(current);
+        parent.addChild(i1,current);
+        parent.setupViewItem();
+    }
+
+    public void down_todo(View view) {
+        if(!(getCurrentFocus() instanceof  ParentableEditText)){
+            Toast.makeText(this,getString(R.string.todo_no_item_selected),Toast.LENGTH_SHORT).show();
+            return;
+        }
+        TodoDOMItem current = ((ParentableEditText)getCurrentFocus()).parent;
+        TodoItemAncestor parent = current.getParent();
+        int i=parent.getChildIndex(current);
+        int i1 = i+1;
+        if(i1>=parent.getChildren().size()){
+            return;
+        }
+        parent.removeChild(current);
+        parent.addChild(i1,current);
+        parent.setupViewItem();
+    }
 }
