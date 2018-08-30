@@ -8,16 +8,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 import vincenthudry.organizer.model.Database;
+import vincenthudry.organizer.model.TimeRemindersDatabase;
 import vincenthudry.organizer.utils.Tuple2;
 
 public class AlarmManager {
 
     private Context context;
-    private Database db;
+    private TimeRemindersDatabase db;
 
     private static List<Tuple2<PendingIntent,Long>> intentIDList=new LinkedList<>();
 
-    public AlarmManager(Context context,Database db){
+    public AlarmManager(Context context,TimeRemindersDatabase db){
         this.context=context;
         this.db=db;
     }

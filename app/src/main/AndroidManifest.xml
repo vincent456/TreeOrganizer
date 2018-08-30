@@ -29,7 +29,8 @@
 
         <activity android:name=".view.notes_module.NoteListActivity" />
         <activity android:name=".view.reminders_module.TimeRemidersActivity" />
-        <activity android:name=".view.todo_view.TodoActivity"></activity>
+        <activity android:name=".view.todo_view.TodoActivity" />
+        <activity android:name=".view.reminders.ShowAllReminders"></activity>
     </application>
 
 </manifest>

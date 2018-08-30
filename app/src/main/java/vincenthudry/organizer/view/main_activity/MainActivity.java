@@ -1,6 +1,7 @@
 package vincenthudry.organizer.view.main_activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,11 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.EditText;
-
-import vincenthudry.organizer.view.tree_layout.TreeFragment;
 import vincenthudry.organizer.model.Database;
 import vincenthudry.organizer.R;
-import vincenthudry.organizer.view.reminders_module.ReminderFragment;
+import vincenthudry.organizer.view.reminders.ShowAllReminders;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,16 +32,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        TabAdapter tabAdapter = new TabAdapter(getSupportFragmentManager());
-        tabAdapter.init(new Fragment[]{new ReminderFragment(),TreeFragment.newInstance()});
-        viewPager.setAdapter(tabAdapter);
-
-        TabLayout tabLayout= findViewById(R.id.tab_layout);
-        tabLayout.setupWithViewPager(viewPager);
-
         db = new Database(this);
-
     }
 
     @Override
@@ -61,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.show_all_reminders) {
+            Intent intent = new Intent(this, ShowAllReminders.class);
+            startActivity(intent);
             return true;
         }
 

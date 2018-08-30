@@ -10,8 +10,6 @@
         android:id="@+id/action_rebind_parent"
         android:title="@string/rebind_parent" />
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="102"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/show_all_reminders"
+        android:title="@string/show_all_reminders" />
 </menu>
