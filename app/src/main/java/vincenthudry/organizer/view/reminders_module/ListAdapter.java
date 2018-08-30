@@ -20,12 +20,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     private List<Tuple2<Long,Long>> data;
     private Context context;
-    private RecyclerView rw;
 
     public ListAdapter(List<Tuple2<Long,Long>> data, Context context, RecyclerView rw){
         this.data=data;
         this.context=context;
-        this.rw=rw;
+        RecyclerView rw1 = rw;
     }
 
     @Override

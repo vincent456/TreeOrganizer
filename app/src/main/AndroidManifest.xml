@@ -24,7 +24,8 @@
         <receiver
             android:name=".controller.AlarmReciever"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            android:permission="" />
 
         <activity android:name=".view.notes_module.NoteListActivity" />
         <activity android:name=".view.reminders_module.TimeRemidersActivity" />

@@ -5,7 +5,6 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>*
-    <string name="save_as_encrypted">save as encrypted</string>
     <string name="encrypt_decrypt">Encrypt/Decrypt</string>
     <string name="channel_name">alarm notification channel</string>
     <string name="channel_description">channel for alarms</string>
@@ -19,7 +18,6 @@
     <string name="error_during_decryption">An error occurred in decryption</string>
     <string name="enter_password">enter password for encryption/decryption</string>
     <string name="please_enter_password_for_encrypted_note">enter password for save as encrypted</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enter_node_title">enter node title</string>
     <string name="delete_node">Delete Node</string>
     <string name="cant_delete_root_node">can\'t delete root</string>

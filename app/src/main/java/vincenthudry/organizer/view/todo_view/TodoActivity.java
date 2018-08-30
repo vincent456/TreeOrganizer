@@ -10,8 +10,6 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.model.TodoDataObjectModel.ParentableEditText;
 import vincenthudry.organizer.model.TodoDataObjectModel.TodoDOMHeaderItem;
@@ -140,7 +138,6 @@ public class TodoActivity extends AppCompatActivity {
         }
         catch (ArrayIndexOutOfBoundsException e){
             Toast.makeText(this,getString(R.string.default_error_message),Toast.LENGTH_SHORT).show();
-            return;
         }
     }
 

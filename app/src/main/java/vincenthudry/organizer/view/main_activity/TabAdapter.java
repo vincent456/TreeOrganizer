@@ -26,7 +26,7 @@ public class TabAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position){
-        return (CharSequence) new String[]{"reminders","tree"}[position];
+        return new String[]{"reminders","tree"}[position];
     }
 
     public Fragment[] getFragments(){

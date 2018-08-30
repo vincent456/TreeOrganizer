@@ -15,19 +15,14 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.EditText;
 
-import vincenthudry.organizer.model.NodesDatabase;
 import vincenthudry.organizer.view.tree_layout.TreeFragment;
 import vincenthudry.organizer.model.Database;
 import vincenthudry.organizer.R;
 import vincenthudry.organizer.view.reminders_module.ReminderFragment;
-import vincenthudry.organizer.view.notes_module.NoteFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     Database db;
-
-    private  ViewPager viewPager;
-    private TabAdapter tabAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +30,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        viewPager=(ViewPager) findViewById(R.id.view_pager);
-        tabAdapter=new TabAdapter(getSupportFragmentManager());
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        TabAdapter tabAdapter = new TabAdapter(getSupportFragmentManager());
         tabAdapter.init(new Fragment[]{new ReminderFragment(),TreeFragment.newInstance()});
         viewPager.setAdapter(tabAdapter);
 
-        TabLayout tabLayout= (TabLayout) findViewById(R.id.tab_layout);
+        TabLayout tabLayout= findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
 
         db = new Database(this);

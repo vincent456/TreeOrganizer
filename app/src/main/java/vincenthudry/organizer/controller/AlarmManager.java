@@ -16,7 +16,6 @@ public class AlarmManager {
     private Database db;
 
     private static List<Tuple2<PendingIntent,Long>> intentIDList=new LinkedList<>();
-    private final int ALARM_REQUEST_CODE=1;
 
     public AlarmManager(Context context,Database db){
         this.context=context;
@@ -27,14 +26,15 @@ public class AlarmManager {
         for(Tuple2<Long,Long> tuple : db.getAllReminders()){
             long time= tuple.t2;
             PendingIntent pendingIntent=setAlarm(time);
-            intentIDList.add(new Tuple2<PendingIntent, Long>(pendingIntent,tuple.t1));
+            intentIDList.add(new Tuple2<>(pendingIntent, tuple.t1));
         }
     }
 
     private PendingIntent setAlarm(long time){
         android.app.AlarmManager am= (android.app.AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent=new Intent(context,AlarmReciever.class);
-        PendingIntent pendingIntent=PendingIntent.getBroadcast(context,ALARM_REQUEST_CODE,intent,0);
+        int ALARM_REQUEST_CODE = 1;
+        PendingIntent pendingIntent=PendingIntent.getBroadcast(context, ALARM_REQUEST_CODE,intent,0);
         am.set(android.app.AlarmManager.RTC_WAKEUP,time,pendingIntent);
         return pendingIntent;
     }
@@ -42,7 +42,7 @@ public class AlarmManager {
     public void addNewAlarm(long time){
         long id=db.addReminder(time);
         PendingIntent pendingIntent=setAlarm(time);
-        intentIDList.add(new Tuple2<PendingIntent, Long>(pendingIntent,id));
+        intentIDList.add(new Tuple2<>(pendingIntent, id));
     }
 
     public void deleteAlarm(long id){

@@ -3,14 +3,9 @@ package vincenthudry.organizer.view.notes_module;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import java.util.List;
-
 import vincenthudry.organizer.R;
-import vincenthudry.organizer.model.NotesDatabase;
-import vincenthudry.organizer.utils.Tuple2;
 
 public class NoteListActivity extends AppCompatActivity {
 

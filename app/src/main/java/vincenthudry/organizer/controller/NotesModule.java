@@ -1,6 +1,5 @@
 package vincenthudry.organizer.controller;
 
-import android.app.Activity;
 import android.content.Context;
 
 import java.security.InvalidKeyException;
@@ -49,7 +48,7 @@ public class NotesModule {
 
     }
 
-    public void decrypt(long id, String password) throws DoubleDecrypt, Exception {
+    public void decrypt(long id, String password) throws Exception {
         if(!db.getEncrypted(id))
             throw new DoubleDecrypt();
         byte[] encryptedData=db.getEncryptedData(id);

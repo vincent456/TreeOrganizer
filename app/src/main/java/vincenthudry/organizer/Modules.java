@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import vincenthudry.organizer.utils.Tuple2;
 import vincenthudry.organizer.view.notes_module.NoteListActivity;
-import vincenthudry.organizer.view.reminders_module.TimeRemidersActivity;
 import vincenthudry.organizer.view.todo_view.TodoActivity;
 
 public class Modules {
@@ -19,7 +18,7 @@ public class Modules {
             add each module to data as a new Tuple2<String, Intent>("module name",new Intent(context, ModuleActivity.class));
          */
         Intent notesModule=new Intent(context, NoteListActivity.class);
-        data.add(new Tuple2<String, Intent>("notes",notesModule));
+        data.add(new Tuple2<>("notes", notesModule));
 
         /*
         Intent timeRemindersModule=new Intent(context, TimeRemidersActivity.class);
@@ -29,6 +28,6 @@ public class Modules {
 
 
         Intent todoModule = new Intent(context, TodoActivity.class);
-        data.add(new Tuple2<String, Intent>("Todo list",todoModule));
+        data.add(new Tuple2<>("Todo list", todoModule));
     }
 }
