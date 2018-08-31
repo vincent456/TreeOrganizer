@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 import java.util.Calendar;
 import java.util.List;
@@ -19,14 +20,18 @@ public class ShowAllReminders extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_all_reminders);
 
+        Toolbar toolbar=findViewById(R.id.toolbar4);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         TimeRemindersDatabase trd = new TimeRemindersDatabase(this);
 
 
         //region test
         Calendar calendar=Calendar.getInstance();
 
-        calendar.set(Calendar.HOUR_OF_DAY,18);
-        calendar.set(Calendar.MINUTE,45);
+        calendar.set(Calendar.HOUR_OF_DAY,19);
+        calendar.set(Calendar.MINUTE,0);
         trd.addReminder(calendar.getTimeInMillis());
 
         calendar.set(Calendar.HOUR_OF_DAY,18);

@@ -1,5 +1,7 @@
 package vincenthudry.organizer.view.reminders;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,11 @@ class ReminderAdapter extends RecyclerView.Adapter {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(data.get(position).t2);
         ((ViewHolder)holder).tv.setText(c.getTime().toString());
+        Calendar now = Calendar.getInstance();
+
+        if(c.getTimeInMillis()<now.getTimeInMillis()){
+            ((ViewHolder)holder).tv.setTextColor(Color.RED);
+        }
     }
 
     @Override
