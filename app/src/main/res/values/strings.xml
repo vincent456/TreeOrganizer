@@ -31,4 +31,5 @@
     <string name="default_error_message">I can\'t do that</string>
     <string name="dismiss_keyboard">select any item then dismiss the keyboard</string>
     <string name="show_all_reminders">show all reminders</string>
+    <string name="user_manual">User Manual</string>
 </resources>

@@ -51,8 +51,14 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.show_all_reminders) {
-            Intent intent = new Intent(this, ShowAllReminders.class);
+        //if (id == R.id.show_all_reminders) {
+        //    Intent intent = new Intent(this, ShowAllReminders.class);
+        //    startActivity(intent);
+        //    return true;
+        //}
+
+        if(id == R.id.user_manual){
+            Intent intent = new Intent(this,UserManualActivity.class);
             startActivity(intent);
             return true;
         }

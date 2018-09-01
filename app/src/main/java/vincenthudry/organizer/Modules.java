@@ -20,12 +20,6 @@ public class Modules {
         Intent notesModule=new Intent(context, NoteListActivity.class);
         data.add(new Tuple2<>("notes", notesModule));
 
-        /*
-        Intent timeRemindersModule=new Intent(context, TimeRemidersActivity.class);
-        data.add(new Tuple2<String, Intent>("time reminders",timeRemindersModule));
-        */
-        //TODO: implement reminders
-
 
         Intent todoModule = new Intent(context, TodoActivity.class);
         data.add(new Tuple2<>("Todo list", todoModule));

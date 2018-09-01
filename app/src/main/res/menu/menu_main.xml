@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="vincenthudry.organizer.view.main_activity.MainActivity">
     <item
+        android:id="@+id/user_manual"
+        android:title="@string/user_manual" />
+    <item
         android:id="@+id/delete_node"
         android:orderInCategory="101"
         android:title="@string/delete_node" />
     <item
         android:id="@+id/action_rebind_parent"
         android:title="@string/rebind_parent" />
-    <item
-        android:id="@+id/show_all_reminders"
-        android:title="@string/show_all_reminders" />
 </menu>

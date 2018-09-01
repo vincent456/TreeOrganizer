@@ -34,6 +34,9 @@ public class AlarmManager {
     private PendingIntent setAlarm(long time){
         android.app.AlarmManager am= (android.app.AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent=new Intent(context,AlarmReciever.class);
+        intent.putExtra("time",time);
+
+        //intent.putExtra("nodeID");
         int ALARM_REQUEST_CODE = 1;
         PendingIntent pendingIntent=PendingIntent.getBroadcast(context, ALARM_REQUEST_CODE,intent,0);
         am.set(android.app.AlarmManager.RTC_WAKEUP,time,pendingIntent);
