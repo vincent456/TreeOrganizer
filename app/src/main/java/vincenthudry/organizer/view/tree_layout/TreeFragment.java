@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -55,6 +56,7 @@ public class TreeFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_tree, container, false);
 
         wv=v.findViewById(R.id.tree_layout);
+        wv.setWebViewClient(new WebViewClient());
         wv.getSettings().setJavaScriptEnabled(true);
         WebView.setWebContentsDebuggingEnabled(true);
         wv.addJavascriptInterface(new WebAppInterface(getActivity()),"Android");
